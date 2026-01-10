@@ -14,11 +14,22 @@ class MainActivity : AppCompatActivity() {
 
 
         val btnGoToSecond = findViewById<Button>(R.id.btnGoToSecond)
+        val btnteste = findViewById<Button>(R.id.btnTeste)
 
         btnGoToSecond.setOnClickListener {
 
             //intent para na class cam
             val intent = Intent(this, cam::class.java)
+
+            // Começar a activity
+            startActivity(intent)
+
+
+        }
+        btnteste.setOnClickListener {
+
+            //intent para na class cam
+            val intent = Intent(this, Horarios::class.java)
 
             // Começar a activity
             startActivity(intent)

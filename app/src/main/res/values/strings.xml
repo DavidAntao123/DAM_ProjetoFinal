@@ -4,7 +4,9 @@
     <string name="permission_denied">Permissões negadas</string>
     <string name="after_take_photo">Fotografia tirada:\n%1$s</string>
     <string name="camera">Câmera</string>
+    <string name="teste">teste</string>
     <string name="voltar">Voltar</string>
+    <string name="abc">texto para ir nos horarios</string>
 
 
 </resources>
