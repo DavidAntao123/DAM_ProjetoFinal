@@ -1,0 +1,34 @@
+{
+  "schedule": {
+    "days": ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado"],
+    "timeSlots": [
+      {
+        "time": "08:30 - 09:00",
+        "Segunda": "Programming",
+        "Terca": "",
+        "Quarta": "Algorithms",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "09:00 - 09:30",
+        "Segunda": "Programming",
+        "Terca": "Databases",
+        "Quarta": "Algorithms",
+        "Quinta": "Networks",
+        "Sexta": "Web Dev",
+        "Sabado": ""
+      },
+      {
+        "time": "09:30 - 10:00",
+        "Segunda": "Mobile Dev",
+        "Terca": "Databases",
+        "Quarta": "",
+        "Quinta": "AI",
+        "Sexta": "",
+        "Sabado": ""
+      }
+    ]
+  }
+}

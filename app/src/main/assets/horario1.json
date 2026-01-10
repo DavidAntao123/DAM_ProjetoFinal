@@ -1,0 +1,43 @@
+{
+  "schedule": {
+    "days": ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado"],
+    "timeSlots": [
+      {
+        "time": "08:30 - 09:00",
+        "Segunda": "Mathematics",
+        "Terca": "",
+        "Quarta": "Physics",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "09:00 - 09:30",
+        "Segunda": "Mathematics",
+        "Terca": "History",
+        "Quarta": "Physics",
+        "Quinta": "",
+        "Sexta": "Geography",
+        "Sabado": ""
+      },
+      {
+        "time": "09:30 - 10:00",
+        "Segunda": "Chemistry",
+        "Terca": "Portuguese",
+        "Quarta": "",
+        "Quinta": "Biology",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "10:00 - 10:30",
+        "Segunda": "Biology",
+        "Terca": "History",
+        "Quarta": "English",
+        "Quinta": "",
+        "Sexta": "Art",
+        "Sabado": "Music"
+      }
+    ]
+  }
+}
