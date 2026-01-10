@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ProjFinal</string>
+    <string name="Btn_Tirarfoto">Tirar Foto</string>
+    <string name="permission_denied">Permissões negadas</string>
+    <string name="after_take_photo">Fotografia tirada:\n%1$s</string>
+    <string name="camera">Câmera</string>
+    <string name="voltar">Voltar</string>
+
+
+</resources>
