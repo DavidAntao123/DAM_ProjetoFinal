@@ -4,39 +4,282 @@
     "timeSlots": [
       {
         "time": "08:30 - 09:00",
-        "Segunda": "Mathematics",
+        "Segunda": "",
         "Terca": "",
-        "Quarta": "Physics",
+        "Quarta": "",
         "Quinta": "",
         "Sexta": "",
         "Sabado": ""
       },
       {
         "time": "09:00 - 09:30",
-        "Segunda": "Mathematics",
-        "Terca": "History",
-        "Quarta": "Physics",
+        "Segunda": "",
+        "Terca": "",
+        "Quarta": "",
         "Quinta": "",
-        "Sexta": "Geography",
+        "Sexta": "",
         "Sabado": ""
       },
       {
         "time": "09:30 - 10:00",
-        "Segunda": "Chemistry",
-        "Terca": "Portuguese",
+        "Segunda": "",
+        "Terca": "",
         "Quarta": "",
-        "Quinta": "Biology",
+        "Quinta": "",
         "Sexta": "",
         "Sabado": ""
       },
       {
         "time": "10:00 - 10:30",
-        "Segunda": "Biology",
-        "Terca": "History",
-        "Quarta": "English",
+        "Segunda": "",
+        "Terca": "Álgebra (TP)",
+        "Quarta": "Sistemas Digitais (PL)",
         "Quinta": "",
-        "Sexta": "Art",
-        "Sabado": "Music"
+        "Sexta": "Álgebra (TP)",
+        "Sabado": ""
+      },
+      {
+        "time": "10:30 - 11:00",
+        "Segunda": "",
+        "Terca": "B255",
+        "Quarta": "I175/76",
+        "Quinta": "",
+        "Sexta": "B255",
+        "Sabado": ""
+      },
+      {
+        "time": "11:00 - 11:30",
+        "Segunda": "",
+        "Terca": "Carlos Perquilhas",
+        "Quarta": "Manuel Barros",
+        "Quinta": "",
+        "Sexta": "Carlos Perquilhas",
+        "Sabado": ""
+      },
+      {
+        "time": "11:30 - 12:00",
+        "Segunda": "",
+        "Terca": "",
+        "Quarta": "_",
+        "Quinta": "",
+        "Sexta": "_",
+        "Sabado": ""
+      },
+      {
+        "time": "12:00 - 12:30",
+        "Segunda": "",
+        "Terca": "",
+        "Quarta": "-",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "12:30 - 13:00",
+        "Segunda": "",
+        "Terca": "",
+        "Quarta": "-",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "13:00 - 13:30",
+        "Segunda": "",
+        "Terca": "",
+        "Quarta": "",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "13:30 - 14:00",
+        "Segunda": "",
+        "Terca": "IPRP",
+        "Quarta": "",
+        "Quinta": "Analise",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "14:00 - 14:30",
+        "Segunda": "Analise",
+        "Terca": "IPRP",
+        "Quarta": "",
+        "Quinta": "Analise",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "14:30 - 15:00",
+        "Segunda": "Analise",
+        "Terca": "IPRP",
+        "Quarta": "",
+        "Quinta": "Analise",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "15:00 - 15:30",
+        "Segunda": "Analise",
+        "Terca": "IPRP",
+        "Quarta": "",
+        "Quinta": "Analise",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "15:30 - 16:00",
+        "Segunda": "Analise",
+        "Terca": "IPRP",
+        "Quarta": "",
+        "Quinta": "Analise",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "16:00 - 16:30",
+        "Segunda": "",
+        "Terca": "IPRP",
+        "Quarta": "",
+        "Quinta": "Analise",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "16:30 - 17:00",
+        "Segunda": "Sistemas",
+        "Terca": "IET",
+        "Quarta": "",
+        "Quinta": "IPRP",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "17:00 - 17:30",
+        "Segunda": "Sistemas",
+        "Terca": "IET",
+        "Quarta": "IET",
+        "Quinta": "IPRP",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "17:30 - 18:00",
+        "Segunda": "Sistemas",
+        "Terca": "IET",
+        "Quarta": "IET",
+        "Quinta": "IPRP",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "18:00 - 18:30",
+        "Segunda": "Sistemas",
+        "Terca": "IET",
+        "Quarta": "IET",
+        "Quinta": "IPRP",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "18:30 - 19:00",
+        "Segunda": "",
+        "Terca": "",
+        "Quarta": "IET",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "19:00 - 19:30",
+        "Segunda": "",
+        "Terca": "",
+        "Quarta": "",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "19:30 - 20:00",
+        "Segunda": "",
+        "Terca": "",
+        "Quarta": "",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "20:00 - 20:30",
+        "Segunda": "",
+        "Terca": "",
+        "Quarta": "",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "20:30 - 21:00",
+        "Segunda": "",
+        "Terca": "",
+        "Quarta": "",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "21:00 - 21:30",
+        "Segunda": "",
+        "Terca": "",
+        "Quarta": "",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "21:30 - 22:00",
+        "Segunda": "",
+        "Terca": "",
+        "Quarta": "",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "22:00 - 22:30",
+        "Segunda": "",
+        "Terca": "",
+        "Quarta": "",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "22:30 - 23:00",
+        "Segunda": "",
+        "Terca": "",
+        "Quarta": "",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "23:00 - 23:30",
+        "Segunda": "",
+        "Terca": "",
+        "Quarta": "",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "23:30 - 24:00",
+        "Segunda": "",
+        "Terca": "",
+        "Quarta": "",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
       }
     ]
   }
