@@ -20,7 +20,7 @@
             android:layout_weight="1"
             android:layout_margin="4dp"
             android:text="Horário 1"
-            android:backgroundTint="#4ECDC4" />
+            android:backgroundTint="@color/verde_secundario" />
 
         <Button
             android:id="@+id/btnHorario2"
@@ -29,7 +29,7 @@
             android:layout_weight="1"
             android:layout_margin="4dp"
             android:text="Horário 2"
-            android:backgroundTint="#FF6B6B" />
+            android:backgroundTint="@color/verde_secundario" />
 
         <Button
             android:id="@+id/btnClear"
@@ -37,8 +37,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_margin="4dp"
-            android:text="Clear"
-            android:backgroundTint="#FFD166" />
+            android:text="Limpar"
+            android:backgroundTint="@color/verde_secundario" />
 
     </LinearLayout>
 

@@ -36,6 +36,7 @@
         android:id="@+id/btnQR"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:textSize="20sp"
         android:text="Ler QR Code"
         android:backgroundTint="@color/verde_secundario"
         android:textColor="@color/branco"
@@ -48,10 +49,14 @@
         android:id="@+id/btnSobre"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Sobre a App"
         android:layout_margin="32dp"
-        app:layout_constraintTop_toBottomOf="@id/btnQR"
+        android:layout_marginTop="212dp"
+        android:backgroundTint="@color/roxo"
+        android:text="Sobre a App"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/btnQR" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

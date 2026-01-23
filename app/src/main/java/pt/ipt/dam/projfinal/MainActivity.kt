@@ -39,5 +39,11 @@ class MainActivity : AppCompatActivity() {
 
 
         }
+        val btnVoltar = findViewById<Button>(R.id.btnVoltar)
+
+        btnVoltar.setOnClickListener {
+            finish() // fecha este ecrã e volta ao anterior
+        }
+
     }
 }
