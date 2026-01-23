@@ -1,95 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Ecrã Sobre a Aplicação
+Contém as informações obrigatórias para o nosso trabalho:
+Curso, disciplina e ano letivo
+Os autores do nosso trabalho
+Nome da nossa aplicação
+Botão voltar
+-->
+
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/verde_secundario">
+    android:layout_height="match_parent">
 
-    <!-- TÍTULO -->
+    <!-- Imagem de fundo que ocupa todo o ecrã -->
+    <ImageView
+        android:id="@+id/imgFundo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/imagem_trabalho"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Overlay escuro para melhorar a leitura do texto -->
+    <View
+        android:id="@+id/overlay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#66000000"
+        android:clickable="false"
+        android:focusable="false"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Título -->
     <TextView
         android:id="@+id/txtTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sobre a Aplicação"
-        android:textSize="30sp"
-        android:textStyle="bold"
         android:textColor="@color/branco"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        android:layout_marginTop="32dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="32dp"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- CARTÃO CURSO -->
+    <!-- Cartão com informações do curso -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardCurso"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
         android:layout_margin="16dp"
-        app:cardCornerRadius="12dp"
+        app:cardCornerRadius="15dp"
         app:cardElevation="6dp"
         app:layout_constraintTop_toBottomOf="@id/txtTitulo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Licenciatura em Engenharia Informática\n\nDesenvolvimento de Aplicações Móveis\nAno Letivo: 2025/2026"
-            android:textSize="16sp"
-            android:textColor="#333333"
-            android:padding="16dp"/>
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:gravity="center_horizontal">
+
+            <!-- Título do cartão -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Informação Académica"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/verde_principal"
+                android:gravity="center"
+                android:layout_marginBottom="10dp"/>
+
+            <!-- Conteúdo -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Licenciatura em Engenharia Informática\n\nDesenvolvimento de Aplicações Móveis\nAno Letivo: 2025/2026"
+                android:textSize="16sp"
+                android:textColor="#333333"
+                android:gravity="center"/>
+
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- CARTÃO AUTORES -->
+    <!-- Cartão com os autores -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardAutores"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="6dp"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="10dp"
         app:layout_constraintTop_toBottomOf="@id/cardCurso"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Autores\n\n25977 – David F. Antão\n14055 – Joana Alves"
-            android:textSize="16sp"
-            android:textColor="#333333"
-            android:padding="16dp"/>
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:gravity="center_horizontal">
+
+            <!-- Título do cartão -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Autores"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/verde_principal"
+                android:gravity="center"
+                android:layout_marginBottom="10dp"/>
+
+            <!-- Conteúdo -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="25977 – David F. Antão\n14055 – Joana Alves"
+                android:textSize="16sp"
+                android:textColor="#333333"
+                android:gravity="center"/>
+
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- NOME DA APP -->
+    <!-- Nome da aplicação que fica em cima do botão voltar -->
     <TextView
         android:id="@+id/txtApp"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Aplicação Leitura de Horários por QR Code"
-        android:textSize="14sp"
         android:textColor="@color/branco"
-        app:layout_constraintTop_toBottomOf="@id/cardAutores"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@id/btnVoltar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
 
+    <!-- Botão Voltar -->
     <Button
         android:id="@+id/btnVoltar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Voltar"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textStyle="bold"
-        android:backgroundTint="@color/roxo"
+        android:backgroundTint="@color/verde_principal"
         android:textColor="@color/branco"
         android:layout_margin="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>
-

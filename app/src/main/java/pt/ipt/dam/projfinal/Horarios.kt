@@ -207,5 +207,7 @@ class Horarios : AppCompatActivity() {
     data class ScheduleResponse(
         val schedule: ScheduleData
     )
+
 }
+
 

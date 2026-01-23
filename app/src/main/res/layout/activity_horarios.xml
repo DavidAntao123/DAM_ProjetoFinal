@@ -1,64 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Ecrã responsável por mostrar os horários de uma sala.
+Botões para selecionar horário e limpar tabela
+Tabela scrollável com cabeçalho (gerado no Kotlin)
+Botão Voltar
+-->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/cinza_fundo"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="16dp">
 
-    <!-- Button Container -->
-    <LinearLayout
+    <!-- Título do ecrã -->
+    <TextView
+        android:id="@+id/txtTituloHorarios"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:padding="8dp">
+        android:layout_marginBottom="6dp"
+        android:text="Horários"
+        android:textColor="@color/verde_principal"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/btnHorario1"
-            android:layout_width="0dp"
+    <!-- Cartão dos botões -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardBotoesHorarios"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="6dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_margin="4dp"
-            android:text="Horário 1"
-            android:backgroundTint="@color/verde_secundario" />
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="12dp">
 
-        <Button
-            android:id="@+id/btnHorario2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_margin="4dp"
-            android:text="Horário 2"
-            android:backgroundTint="@color/verde_secundario" />
+            <!-- Botão: Horário 1 -->
+            <Button
+                android:id="@+id/btnHorario1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/verde_secundario"
+                android:text="Horário 1"
+                android:textColor="@color/branco"
+                android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/btnClear"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_margin="4dp"
-            android:text="Limpar"
-            android:backgroundTint="@color/verde_secundario" />
+            <!-- Botão: Horário 2 -->
+            <Button
+                android:id="@+id/btnHorario2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/verde_secundario"
+                android:text="Horário 2"
+                android:textColor="@color/branco"
+                android:textStyle="bold" />
 
-    </LinearLayout>
+            <!-- Botão: Limpar tabela -->
+            <Button
+                android:id="@+id/btnClear"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/verde_secundario"
+                android:text="Limpar"
+                android:textColor="@color/branco"
+                android:textStyle="bold" />
 
-    <!-- Scrollable Table Container -->
-    <HorizontalScrollView
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- Cartão da tabela -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardTabela"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_marginBottom="12dp"
+        android:layout_weight="1"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="6dp">
 
-        <ScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp">
 
-            <TableLayout
-                android:id="@+id/tableLayout"
+            <ScrollView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:stretchColumns="*" />
+                android:layout_height="match_parent">
 
-        </ScrollView>
-    </HorizontalScrollView>
+                <!-- Tabela preenchida no Kotlin -->
+                <TableLayout
+                    android:id="@+id/tableLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="*" />
+
+            </ScrollView>
+
+        </HorizontalScrollView>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- Botão Voltar-->
+    <Button
+        android:id="@+id/btnVoltar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/verde_principal"
+        android:text="Voltar"
+        android:textColor="@color/branco"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
 </LinearLayout>
