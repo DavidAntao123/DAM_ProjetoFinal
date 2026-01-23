@@ -7,6 +7,8 @@
     <string name="teste">teste</string>
     <string name="voltar">Voltar</string>
     <string name="horario">Horários</string>
+    <string name="horario_1">Horário 1 ano</string>
+    <string name="horario_2">Horário 3 ano</string>
 
 
 </resources>
