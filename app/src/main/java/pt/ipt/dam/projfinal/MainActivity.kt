@@ -18,18 +18,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Botão: abrir ecrã de leitura do QR Code (câmara)
         val btnQR = findViewById<Button>(R.id.btnQR)
+        val btnSobre = findViewById<Button>(R.id.btnSobre)
+
         btnQR.setOnClickListener {
             val intent = Intent(this, cam::class.java)
             startActivity(intent)
         }
 
-        // Botão: abrir ecrã "Sobre a Aplicação"
-        val btnSobre = findViewById<Button>(R.id.btnSobre)
         btnSobre.setOnClickListener {
             val intent = Intent(this, Sobre::class.java)
             startActivity(intent)
         }
     }
 }
+

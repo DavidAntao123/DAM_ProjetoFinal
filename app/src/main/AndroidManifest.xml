@@ -22,7 +22,7 @@
             android:name=".cam"
             android:exported="false" />
         <activity
-            android:name=".Index"
+            android:name=".Sobre"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
