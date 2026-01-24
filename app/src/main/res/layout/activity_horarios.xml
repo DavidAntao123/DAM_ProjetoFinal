@@ -21,7 +21,7 @@ Botão Voltar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="6dp"
-        android:text="Horários"
+        android:text="@string/horariosTitulo"
         android:textColor="@color/verde_principal"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -74,7 +74,7 @@ Botão Voltar
                 android:layout_margin="4dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/verde_secundario"
-                android:text="Limpar"
+                android:text="@string/clearTable"
                 android:textColor="@color/branco"
                 android:textStyle="bold" />
 

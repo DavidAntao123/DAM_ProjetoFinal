@@ -1,28 +1,45 @@
 package pt.ipt.dam.projfinal
 
+// Imports para cores e bordas das células -> tabela
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
+
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
+// Imports de componentes
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
+// Biblioteca usada para converter JSON -> objetos Kotlin
 import com.google.gson.Gson
 import java.io.FileNotFoundException
 
-
+/**
+ * Activity responsável por apresentar o horário correspondente a uma sala,
+ * após a leitura do QR Code.
+ * Recebe um nome de ficheiro -> o url , enviado por Intent
+ * Carrega um ficheiro JSON da pasta assets
+ * Mostra o horário numa tabela TableLayout
+ * Pinta as células com cores diferentes consoante a disciplina
+ * Possui botão Voltar para fechar este ecrã
+ */
 class lerqrcode : AppCompatActivity() {
 
+    // Tabela onde o horário será desenhado
     private lateinit var tableLayout: TableLayout
-
-    private lateinit var btnClear: Button
+    // Botão voltar -> id btnvoltarqrcode
     private lateinit var btnVoltarQrcode: Button
 
 
+    /**
+     * memoriaCores
+     * Guarda a última cor utilizada em cada coluna -> dia,
+     * para manter a continuacao visual quando existem aulas seguidas
+     */
     val memoriaCores = mutableMapOf(
         "Segunda" to "#FFFFFF",
         "Terça"   to "#FFFFFF",
@@ -31,94 +48,122 @@ class lerqrcode : AppCompatActivity() {
         "Sexta"   to "#FFFFFF",
         "Sábado"  to "#FFFFFF"
     )
-
+    /**
+     * Método chamado quando o ecrã abre
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //Liga esta activity ao XML activity_lerqrcode.xml
         setContentView(R.layout.activity_lerqrcode)
 
+        //Inicializa os componentes do layout
         tableLayout = findViewById(R.id.tableLayout)
         btnVoltarQrcode = findViewById(R.id.btnvoltarqrcode)
-
-
+        /**
+         * Recebe o url enviado pelo ecrã anterior -> QR Code
+         */
         val urlRecebida = intent.getStringExtra("url")
 
+        // Se receber um nome válido -> carrega o horário
+        // Senão -> mostra tabela vazia
         if (!urlRecebida.isNullOrEmpty()) {
             loadSchedule(urlRecebida)
         } else {
             generateEmptyTable()
         }
-
+        // Botão voltar: fecha este ecrã e volta ao anterior
         btnVoltarQrcode.setOnClickListener {
             finish()
         }
     }
-    // Carrega o horario do .json
+
+    /**
+     * loadSchedule()
+     * Lê um ficheiro JSON na pasta assets e gera assim a tabela do horário
+     *
+     * O filename pode vir com ou sem ".json".
+     */
     private fun loadSchedule(filename: String) {
         try {
+            // Garantir que o nome do ficheiro termina em .json
             val finalFilename = if (filename.endsWith(".json")) filename else "$filename.json"
-
+            // Le ficheiro JSON dos assets
             val jsonString = assets.open(finalFilename)
                 .bufferedReader()
                 .use { it.readText() }
 
+            // Converte JSON -> objeto Kotlin com Gson
             val gson = Gson()
             val horarioData = gson.fromJson(jsonString, ScheduleResponse::class.java)
-
+            // Limpa tabela antiga e desenha nova tabela
             tableLayout.removeAllViews()
             generateTableFromJson(horarioData)
-
+            // Mensagem de sucesso
             Toast.makeText(this, "Carregado: $finalFilename", Toast.LENGTH_SHORT).show()
 
         } catch (e: FileNotFoundException) {
+            // Caso o ficheiro não exista
             Toast.makeText(this, "Ficheiro não encontrado: $filename", Toast.LENGTH_SHORT).show()
             generateEmptyTable() // Mostra algo se falhar
         } catch (e: Exception) {
+            // Outros erros possíveis de acontecer
             Log.e("ERRO_JSON", "Erro: ${e.message}")
             generateEmptyTable()
         }
-    }
-    // Function to generate table from JSON data
+    }    // Function to generate table from JSON data
     private fun generateTableFromJson(horarioData: ScheduleResponse) {
+        // Limpa a tabela antes de desenhar
         tableLayout.removeAllViews()
-
+        // Dias e blocos horários vindos do JSON
         val dias = horarioData.horario.dias
         val timeSlots = horarioData.horario.timeSlots
-
-
-
-        // Create header row
+        // Criar cabeçalho
         val header = TableRow(this)
-        header.addView(createCell("Horario", "#C5CAE9", true))
+        // Primeira coluna: "Time"
+        header.addView(createCell("Time", "#C5CAE9", true))
+        // Colunas seguintes->dias da semana
         for (dia in dias) {
             header.addView(createCell(dia, "#C5CAE9", true))
         }
         tableLayout.addView(header)
 
-        // Criar as rows com o json
+        // Criar linhas do horário
         for (timeSlot in timeSlots) {
 
             val row = TableRow(this)
 
-            // Add time cell
+            // Coluna da hora
             row.addView(createCell(timeSlot.time, "#E8EAF6", false))
-            // Add dia cells with subject names
 
+            /**
+             * A partir daqui é feito o preenchimento das colunas de todos os dias da semana
+             * Cada célula recebe uma cor baseada no conteúdo ->disciplina
+             * e usa memoriaCores para manter continuidade visual
+             */
+            //---------------------------
+            //--- Segunda-feira ------------
+            //---------------------------
             var corAtual = getCellColor(timeSlot.Segunda)
 
             if (timeSlot.Segunda.isEmpty()) {
+                //se a celula estiver vazia , guarda a core branca (nula)
                 memoriaCores["Segunda"] = "#FFFFFF"
             } else {
+                //caso a celula nao for nula (cor default ou branca), ira guardar a cor
                 if (corAtual != "#9575CD" && corAtual != "#FFFFFF") {
                     memoriaCores["Segunda"] = corAtual
                 }
             }
+            // Utiliza a cor  que foi armazenada no memoriaCores
             var corParaPintar = memoriaCores["Segunda"] ?: "#FFFFFF"
 
+            //Adiciona a celula com a cor certa
             row.addView(createCell(timeSlot.Segunda, corParaPintar, false))
 
             //---------------------------
+            //--- Terça-feira ------------
             //---------------------------
-            //---------------------------
+
 
             corAtual = getCellColor(timeSlot.Terca)
 
@@ -134,7 +179,7 @@ class lerqrcode : AppCompatActivity() {
             row.addView(createCell(timeSlot.Terca, corParaPintar, false))
 
             //---------------------------
-            //---------------------------
+            //--- Quarta-feira ------------
             //---------------------------
 
             corAtual = getCellColor(timeSlot.Quarta)
@@ -151,7 +196,7 @@ class lerqrcode : AppCompatActivity() {
             row.addView(createCell(timeSlot.Quarta, corParaPintar, false))
 
             //---------------------------
-            //---------------------------
+            //--- Quinta-feira ------------
             //---------------------------
             corAtual = getCellColor(timeSlot.Quinta)
 
@@ -166,7 +211,7 @@ class lerqrcode : AppCompatActivity() {
             row.addView(createCell(timeSlot.Quinta, corParaPintar, false))
 
             //---------------------------
-            //---------------------------
+            //--- Sexta-feira ------------
             //---------------------------
 
             corAtual = getCellColor(timeSlot.Sexta)
@@ -182,7 +227,7 @@ class lerqrcode : AppCompatActivity() {
             row.addView(createCell(timeSlot.Sexta, corParaPintar, false))
 
             //---------------------------
-            //---------------------------
+            //--- Sabado -----------------
             //---------------------------
 
             corAtual = getCellColor(timeSlot.Sabado)
@@ -203,13 +248,18 @@ class lerqrcode : AppCompatActivity() {
         }
     }
 
-    // Funcao de gerar tabela limpa
+
+    /**
+     * generateEmptyTable()
+     * Cria uma tabela vazia apenas com o cabeçalho,
+     * usada quando não foi possível carregar um JSON.
+     */
     private fun generateEmptyTable() {
         tableLayout.removeAllViews()
 
         val dias = listOf("Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado")
 
-        // Header
+        // cabecalho
         val header = TableRow(this)
         header.addView(createCell("Horário", "#C5CAE9", true))
         for (dia in dias) {
@@ -219,7 +269,15 @@ class lerqrcode : AppCompatActivity() {
 
         Toast.makeText(this, "Empty table generated", Toast.LENGTH_SHORT).show()
     }
-    // Funcao de criar cell
+
+    /**
+     * createCell()
+     * Cria uma célula da tabela usando um TextView
+     *Texto centrado
+     *Padding
+     *Fundo colorido
+     * Borda preta
+     */
     private fun createCell(text: String, color: String, isHeader: Boolean): TextView {
         return TextView(this).apply {
 
@@ -232,41 +290,46 @@ class lerqrcode : AppCompatActivity() {
                 TableRow.LayoutParams.WRAP_CONTENT
             )
 
-            // Create a drawable programmatically to handle both Color and Border
+            // Fundo com cor + borda
             val shape = GradientDrawable().apply {
                 shape = GradientDrawable.RECTANGLE
 
-                // 1. Set the background color (the 'solid' part)
+                // Cor de fundo
                 try {
                     setColor(Color.parseColor(color))
                 } catch (e: Exception) {
                     setColor(Color.WHITE)
                 }
 
-                // 2. Set the border (the 'stroke' part)
-                // Parameters: (width in pixels, color)
+                //Borda da célula
                 setStroke(2, Color.BLACK)
             }
 
-            // Apply the shape as the background
+            //aplica o fundo
             background = shape
         }
     }
 
-    // Funcao de clear
+
+    /**
+     * clearTable()
+     * Remove todas as linhas da tabela
+     */
     private fun clearTable() {
         tableLayout.removeAllViews()
         Toast.makeText(this, "Table cleared", Toast.LENGTH_SHORT).show()
     }
 
 
-    // Helper function to get cell color based on content
-// Helper function to get cell color based on content
+    /**
+     * getCellColor()
+     * Define a cor da célula conforme o nome da disciplina
+     * Se a disciplina não for reconhecida usa cor default
+     */
     private fun getCellColor(content: String): String {
         return if (content.isNotEmpty()) {
-            // Assign different colors based on subject (Pastel tones for black text readability)
+            // Diferentes cores para cada cadeira
             when {
-                // Engenharia / Tecnologia (Tons Vermelhos e Rosas claros)
                 content.equals("Tecnologia", true) -> "#FFCDD2"
                 content.equals("E.P", true) -> "#F8BBD0"
                 content.equals("R.M", true) -> "#FFEBEE"
@@ -294,7 +357,6 @@ class lerqrcode : AppCompatActivity() {
                 content.contains("Eletronica II", true) -> "#80DEEA"
                 content.contains("I.R", true) -> "#FFCCBC"
 
-                // Projetos e Outros (Tons Laranja e Amarelo claros)
                 content.equals("D.P.C", true) -> "#E8F5E9"
                 content.contains("M.E", true) -> "#D1C4E9"
                 content.contains("M.I.T.E.E.R", true) -> "#FFE0B2"
@@ -302,14 +364,12 @@ class lerqrcode : AppCompatActivity() {
                 content.contains("Projeto", true) -> "#FFF9C4"
                 content.contains("O.T.E", true) -> "#DCEDC8"
 
-                // Matemática e Teoria (Tons Roxos e Azuis claros)
                 content.contains("Matematica", true) -> "#E1BEE7"
                 content.contains("I.E.T", true) -> "#B3E5FC"
                 content.contains("I.P.R.P", true) -> "#D1C4E9"
                 content.contains("H.S.T", true) -> "#C8E6C9"
                 content.contains("E.S", true) -> "#B2EBF2"
 
-                // TESP (Tons Terra e Cinzas suaves)
                 content.equals("A.R.S.I", true) -> "#D7CCC8"
                 content.equals("P.I 2", true) -> "#F5F5F5"
                 content.equals("P.M", true) -> "#FFF59D"
@@ -335,13 +395,18 @@ class lerqrcode : AppCompatActivity() {
                 content.contains("Eng. Software", true) -> "#FFE0B2"
                 content.contains("D.A.M", true) -> "#FCE4EC"
 
-                else -> "#F3E5F5" // Cor default suave (Lavanda)
+                else -> "#F3E5F5" // Cor default
             }
         } else {
-            "#FFFFFF" // Branco para células vazias
+            "#FFFFFF"
         }
     }
-    // Data classes
+
+    // DATA CLASSES ->modelo do JSON
+    /**
+     * TimeSlot
+     * Representa uma linha do horário -> hora e aulas/dados para cada dia
+     */
     data class TimeSlot(
         val time: String,
         val Segunda: String,
@@ -351,16 +416,25 @@ class lerqrcode : AppCompatActivity() {
         val Sexta: String,
         val Sabado: String
     )
-
+    /**
+     * ScheduleData
+     * Guarda a lista de dias e lista das linhas ->TimeSlots
+     */
     data class ScheduleData(
         val dias: List<String>,
         val timeSlots: List<TimeSlot>
     )
-
+    /**
+     * ScheduleResponse
+     * Estrutura principal do JSON horario -> ScheduleData
+     */
     data class ScheduleResponse(
         val horario: ScheduleData
     )
 
 }
+
+
+
 
 

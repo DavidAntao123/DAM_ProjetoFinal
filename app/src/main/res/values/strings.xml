@@ -16,6 +16,8 @@
     <string name="voltarHorario">Voltar</string>
     <string name="horario_3ano">Horário 3º ano LEI</string>
     <string name="horario_1ano">Horário 1º ano LEI</string>
+    <string name="horariosTitulo">Horários</string>
+    <string name="clearTable">Limpar</string>
 
 
 </resources>
