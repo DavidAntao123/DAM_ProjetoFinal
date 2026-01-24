@@ -3,7 +3,8 @@ Ecrã responsável por utilizar a câmara do telemovel.
 permite capturar imagem / ler QR Code para obter a sala e mostrar o horário
 -->
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cam"
