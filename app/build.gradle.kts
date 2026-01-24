@@ -40,6 +40,10 @@ android {
 
 dependencies {
     implementation("com.google.code.gson:gson:2.10.1")
+    implementation("com.google.mlkit:barcode-scanning:17.2.0")
+    implementation(libs.core)
+    implementation(libs.zxing.android.embedded)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -48,6 +52,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
 
     // CameraX core library using the camera2 implementation
     // val cameraxVersion = "1.5.1"
@@ -69,7 +74,6 @@ dependencies {
     // If you want to additionally use the CameraX Extensions library
     // implementation("androidx.camera:camera-extensions:${cameraxVersion}")
     implementation(libs.androidx.camera.extensions)
-
 
 
 }

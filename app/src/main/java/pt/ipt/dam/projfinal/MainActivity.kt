@@ -20,14 +20,19 @@ class MainActivity : AppCompatActivity() {
 
         val btnQR = findViewById<Button>(R.id.btnQR)
         val btnSobre = findViewById<Button>(R.id.btnSobre)
-
+        val btnIrHorario = findViewById<Button>(R.id.btnHorario)
         btnQR.setOnClickListener {
             val intent = Intent(this, cam::class.java)
             startActivity(intent)
         }
 
         btnSobre.setOnClickListener {
-            val intent = Intent(this, Sobre::class.java)
+            val intent = Intent(this, sobre::class.java)
+            startActivity(intent)
+        }
+
+        btnIrHorario.setOnClickListener {
+            val intent = Intent(this, horarios::class.java)
             startActivity(intent)
         }
     }

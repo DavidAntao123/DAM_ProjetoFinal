@@ -7,6 +7,12 @@
     <string name="teste">teste</string>
     <string name="voltar">Voltar</string>
     <string name="horario">Horários</string>
+    <string name="tituloSala">Lê o QR Code da sala de aula</string>
+    <string name="tituloHorarios">Horários por QR Code</string>
+    <string name="irHorario">Horários Disponíveis</string>
+    <string name="readQR">Ler QR Code</string>
+    <string name="sobre">Sobre a App</string>
+    <string name="download">Download</string>
 
 
 </resources>

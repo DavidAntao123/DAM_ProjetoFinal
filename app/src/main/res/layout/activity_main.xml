@@ -48,7 +48,7 @@ Botões para navegar para a leitura de QR Code e a secção Sobre
         android:layout_height="wrap_content"
 
         android:layout_marginTop="32dp"
-        android:text="Horários por QR Code"
+        android:text="@string/tituloHorarios"
         android:textColor="@android:color/white"
         android:textSize="35sp"
         android:textStyle="bold"
@@ -62,7 +62,7 @@ Botões para navegar para a leitura de QR Code e a secção Sobre
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Lê o QR Code da sala de aula"
+        android:text="@string/tituloSala"
         android:textColor="@android:color/white"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -74,14 +74,14 @@ Botões para navegar para a leitura de QR Code e a secção Sobre
     está com margemTop muito grande (500dp) apenas para melhor posicionamento
    -->
     <Button
-        android:id="@+id/btnQR"
+        android:id="@+id/btnHorario"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="90dp"
         android:backgroundTint="@color/verde_principal"
-        android:text="Ler QR Code"
+        android:text="@string/irHorario"
         android:textColor="@android:color/white"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -91,6 +91,23 @@ Botões para navegar para a leitura de QR Code e a secção Sobre
 
     <!-- Botão que abre a secção Sobre a Aplicacao -->
     <Button
+        android:id="@+id/btnQR"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="152dp"
+        android:backgroundTint="@color/verde_principal"
+        android:text="@string/readQR"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
         android:id="@+id/btnSobre"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -98,7 +115,7 @@ Botões para navegar para a leitura de QR Code e a secção Sobre
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="25dp"
         android:backgroundTint="@android:color/white"
-        android:text="Sobre a App"
+        android:text="@string/sobre"
         android:textColor="@color/verde_principal"
         android:textSize="20sp"
         android:textStyle="bold"

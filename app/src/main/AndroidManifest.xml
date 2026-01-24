@@ -16,13 +16,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjFinal" >
         <activity
-            android:name=".Horarios"
+            android:name=".horarios"
             android:exported="false" />
         <activity
             android:name=".cam"
             android:exported="false" />
         <activity
-            android:name=".Sobre"
+            android:name=".sobre"
+            android:exported="false" />
+        <activity
+            android:name=".lerqrcode"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
