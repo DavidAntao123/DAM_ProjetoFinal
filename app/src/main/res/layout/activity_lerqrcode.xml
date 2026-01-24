@@ -96,7 +96,7 @@ Botão Voltar
 
     <!-- Botão Voltar-->
     <Button
-        android:id="@+id/btnVoltar"
+        android:id="@+id/btnvoltarqrcode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/verde_principal"

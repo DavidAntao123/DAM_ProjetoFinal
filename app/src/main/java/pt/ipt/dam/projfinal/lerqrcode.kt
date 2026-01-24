@@ -3,6 +3,7 @@ package pt.ipt.dam.projfinal
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
@@ -13,7 +14,7 @@ import android.widget.Toast
 import com.google.gson.Gson
 import java.io.FileNotFoundException
 
-class horariosLerQRcode : AppCompatActivity() {
+class lerqrcode : AppCompatActivity() {
 
     private lateinit var tableLayout: TableLayout
 
@@ -30,53 +31,48 @@ class horariosLerQRcode : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_horarios)
+        setContentView(R.layout.activity_lerqrcode)
 
-        // Initialize views
         tableLayout = findViewById(R.id.tableLayout)
+        btnClear = findViewById(R.id.btnvoltarqrcode)
 
-        btnClear = findViewById(R.id.btnClear)
+        val urlRecebida = intent.getStringExtra("url")
 
-        loadSchedule("temphorario.json")
-
-        btnClear.setOnClickListener {
-            clearTable()
+        if (!urlRecebida.isNullOrEmpty()) {
+            loadSchedule(urlRecebida)
+        } else {
+            generateEmptyTable()
         }
 
-        // Generate empty table initially
-        generateEmptyTable()
+        btnClear.setOnClickListener {
+            finish()
+        }
     }
-
     // Carrega o horario do .json
     private fun loadSchedule(filename: String) {
         try {
-            val jsonString = assets.open(filename)
+            val finalFilename = if (filename.endsWith(".json")) filename else "$filename.json"
+
+            val jsonString = assets.open(finalFilename)
                 .bufferedReader()
                 .use { it.readText() }
 
             val gson = Gson()
             val horarioData = gson.fromJson(jsonString, ScheduleResponse::class.java)
 
-            // Tabela com o horario
+            tableLayout.removeAllViews()
             generateTableFromJson(horarioData)
 
-            // Show toast message
-            val horarioName = when (filename) {
-                "horario1.json" -> "Horário 1"
-                "horario2.json" -> "Horário 2"
-                else -> "horario"
-            }
-            Toast.makeText(this, "Carregado: $horarioName", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Carregado: $finalFilename", Toast.LENGTH_SHORT).show()
 
         } catch (e: FileNotFoundException) {
-            Toast.makeText(this, "Ficheiro nao encontrado: $filename", Toast.LENGTH_SHORT).show()
-            e.printStackTrace()
+            Toast.makeText(this, "Ficheiro não encontrado: $filename", Toast.LENGTH_SHORT).show()
+            generateEmptyTable() // Mostra algo se falhar
         } catch (e: Exception) {
-            Toast.makeText(this, "Erro a carregar horario", Toast.LENGTH_SHORT).show()
-            e.printStackTrace()
+            Log.e("ERRO_JSON", "Erro: ${e.message}")
+            generateEmptyTable()
         }
     }
-
     // Function to generate table from JSON data
     private fun generateTableFromJson(horarioData: ScheduleResponse) {
         tableLayout.removeAllViews()

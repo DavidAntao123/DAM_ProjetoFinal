@@ -40,8 +40,9 @@ android {
 
 dependencies {
     implementation("com.google.code.gson:gson:2.10.1")
-    implementation("com.google.zxing:core:3.4.1")
-    implementation("com.journeyapps:zxing-android-embedded:4.2.0")
+    implementation("com.google.mlkit:barcode-scanning:17.2.0")
+    implementation(libs.core)
+    implementation(libs.zxing.android.embedded)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
