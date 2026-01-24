@@ -32,19 +32,19 @@
       {
         "time": "10:00 - 10:30",
         "Segunda": "",
-        "Terca": "Álgebra (TP)",
+        "Terca": "Algebra",
         "Quarta": "S.D",
         "Quinta": "",
-        "Sexta": "Álgebra (TP)",
+        "Sexta": "Algebra",
         "Sabado": ""
       },
       {
         "time": "10:30 - 11:00",
         "Segunda": "",
-        "Terca": "B255",
+        "Terca": "B255 (TP)",
         "Quarta": "(PL)",
         "Quinta": "",
-        "Sexta": "B255",
+        "Sexta": "B255 (TP)",
         "Sabado": ""
       },
       {
@@ -69,7 +69,7 @@
         "time": "12:00 - 12:30",
         "Segunda": "",
         "Terca": "",
-        "Quarta": "-",
+        "Quarta": " ",
         "Quinta": "",
         "Sexta": "",
         "Sabado": ""
@@ -78,7 +78,7 @@
         "time": "12:30 - 13:00",
         "Segunda": "",
         "Terca": "",
-        "Quarta": "-",
+        "Quarta": " ",
         "Quinta": "",
         "Sexta": "",
         "Sabado": ""
@@ -95,16 +95,16 @@
       {
         "time": "13:30 - 14:00",
         "Segunda": "",
-        "Terca": "Introdução",
+        "Terca": "I.P.R.P",
         "Quarta": "",
-        "Quinta": "Analise Matematica I",
+        "Quinta": "A. Matematica I",
         "Sexta": "",
         "Sabado": ""
       },
       {
         "time": "14:00 - 14:30",
-        "Segunda": "Analise Matematica I",
-        "Terca": "à Programacao",
+        "Segunda": "A. Matematica I",
+        "Terca": "(PL)",
         "Quarta": "",
         "Quinta": "(TP)",
         "Sexta": "",
@@ -113,7 +113,7 @@
       {
         "time": "14:30 - 15:00",
         "Segunda": "(TP)",
-        "Terca": "e à resolução",
+        "Terca": "O103",
         "Quarta": "",
         "Quinta": "B255",
         "Sexta": "",
@@ -122,7 +122,7 @@
       {
         "time": "15:00 - 15:30",
         "Segunda": "B255",
-        "Terca": "de problemas",
+        "Terca": "Antonio Manso",
         "Quarta": "",
         "Quinta": "Luis Merca",
         "Sexta": "",
@@ -131,18 +131,18 @@
       {
         "time": "15:30 - 16:00",
         "Segunda": "Luis Merca",
-        "Terca": "(PL) O103",
+        "Terca": " ",
         "Quarta": "",
-        "Quinta": "-",
+        "Quinta": " ",
         "Sexta": "",
         "Sabado": ""
       },
       {
         "time": "16:00 - 16:30",
         "Segunda": "",
-        "Terca": "Antonio Manso",
+        "Terca": " ",
         "Quarta": "",
-        "Quinta": "-",
+        "Quinta": " ",
         "Sexta": "",
         "Sabado": ""
       },

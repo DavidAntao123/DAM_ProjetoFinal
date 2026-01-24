@@ -215,13 +215,6 @@ class lerqrcode : AppCompatActivity() {
 
         Toast.makeText(this, "Empty table generated", Toast.LENGTH_SHORT).show()
     }
-
-    // Funcao de clear
-    private fun clearTable() {
-        tableLayout.removeAllViews()
-        Toast.makeText(this, "Table cleared", Toast.LENGTH_SHORT).show()
-    }
-
     // Funcao de criar cell
     private fun createCell(text: String, color: String, isHeader: Boolean): TextView {
         return TextView(this).apply {
@@ -255,6 +248,13 @@ class lerqrcode : AppCompatActivity() {
             background = shape
         }
     }
+
+    // Funcao de clear
+    private fun clearTable() {
+        tableLayout.removeAllViews()
+        Toast.makeText(this, "Table cleared", Toast.LENGTH_SHORT).show()
+    }
+
 
     // Helper function to get cell color based on content
 // Helper function to get cell color based on content

@@ -1,8 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-Ecrã responsável por utilizar a câmara do telemovel.
-permite capturar imagem / ler QR Code para obter a sala e mostrar o horário
--->
-
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -13,22 +9,6 @@ permite capturar imagem / ler QR Code para obter a sala e mostrar o horário
     android:background="@color/branco"
     tools:context=".MainActivity">
 
-    <!--
-    preview câmara (CameraX)
-    Mostra a imagem em tempo real para o utilizador apontar para o QRCode
-    -->
-    <androidx.camera.view.PreviewView
-        android:id="@+id/viewFinder"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="16dp"
-        android:background="@color/preto"
-        app:layout_constraintBottom_toTopOf="@id/imageCaptureButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtInstrucao" />
-
-    <!-- Texto informativo para orientar o utilizador -->
     <TextView
         android:id="@+id/txtInstrucao"
         android:layout_width="wrap_content"
@@ -42,35 +22,29 @@ permite capturar imagem / ler QR Code para obter a sala e mostrar o horário
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Botão para capturar a imagem (usado para tirar foto ou iniciar leitura do QR) -->
-    <Button
-        android:id="@+id/imageCaptureButton"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/verde_secundario"
-        android:elevation="2dp"
-        android:text="Captura"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    <androidx.camera.view.PreviewView
+        android:id="@+id/viewFinder"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:background="@color/preto"
+        app:layout_constraintBottom_toTopOf="@id/btnvoltar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtInstrucao" />
 
-    <!-- Botão para voltar ao ecrã principal -->
     <Button
         android:id="@+id/btnvoltar"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="24dp"
         android:backgroundTint="@color/verde_secundario"
         android:elevation="2dp"
         android:text="@string/voltar"
+        android:textColor="@color/preto"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-
-    <!-- Aqui fica o leitor de QR depois -->
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

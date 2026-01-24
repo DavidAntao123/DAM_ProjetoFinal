@@ -239,6 +239,7 @@ class horarios : AppCompatActivity() {
         return TextView(this).apply {
 
             this.text = text
+            this.setTextColor(Color.BLACK)
             setPadding(32, 32, 32, 32)
             gravity = Gravity.CENTER
             layoutParams = TableRow.LayoutParams(
@@ -278,21 +279,24 @@ class horarios : AppCompatActivity() {
                 content.equals("A.R.S.I", true) -> "#a8326f"
 
                 //1 ano
-                content.contains("Álgebra (TP)", true) -> "#ff1f00"
-                content.contains("Analise Matematica I", true) -> "#00ff92"
-                content.contains("S.D", true) -> "#b300ff"
-                content.contains("I.E.T", true) -> "#009eff"
-                content.contains("I.P.R.P", true) -> "#9B5DE5"
 
-                //2 ano
-                content.contains("Redes I", true) -> "#32a852"
-                content.contains("A.C", true) -> "#328fa8"
+                content.contains("Algebra", true) -> "#FFECB3"
+                content.contains("A. Matematica I", true) -> "#C8E6C9"
+                content.contains("S.D", true) -> "#E1BEE7"
+                content.contains("I.E.T", true) -> "#B3E5FC"
+                content.contains("I.P.R.P", true) -> "#D1C4E9"
 
-                //3 ano
-                content.contains("I.R.L", true) -> "#ff1f00"
-                content.equals("S.I", true) -> "#00ff92"
-                content.contains("C.D", true) -> "#b300ff"
-                content.contains("Eng. Software", true) -> "#ff6f00"
+                // 2º Ano
+                content.contains("Redes I", true) -> "#C5E1A5"
+                content.contains("A.C", true) -> "#B2EBF2"
+                content.contains("I.W", true) -> "#E1F5FE"
+
+                // 3º Ano
+                content.contains("I.R.L", true) -> "#FFCCBC"
+                content.equals("S.I", true) -> "#B9F6CA"
+                content.contains("C.D", true) -> "#D1C4E9"
+                content.contains("Eng. Software", true) -> "#FFE0B2"
+                content.contains("D.A.M", true) -> "#FCE4EC"
 
 
                 else -> "#9575CD" // Cor default
