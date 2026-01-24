@@ -273,17 +273,31 @@ class horarios : AppCompatActivity() {
         return if (content.isNotEmpty()) {
             // Assign different colors based on subject
             when {
+                //Outro
+
+                //TESP
+                content.equals("A.R.S.I", true) -> "#a8326f"
+
+                //1 ano
                 content.contains("Álgebra (TP)", true) -> "#ff1f00"
                 content.contains("Analise Matematica I", true) -> "#00ff92"
                 content.contains("Sistemas Digitais", true) -> "#b300ff"
-                content.contains("Introdução", true) -> "#ff6f00"
                 content.contains("I.E.T", true) -> "#009eff"
                 content.contains("I.P.R.P", true) -> "#9B5DE5"
+
+                //2 ano
+                content.contains("Redes I", true) -> "#32a852"
+                content.contains("A.C", true) -> "#328fa8"
+
+                //3 ano
                 content.contains("I.R.L", true) -> "#ff1f00"
-                content.contains("S.I", true) -> "#00ff92"
+                content.equals("S.I", true) -> "#00ff92"
                 content.contains("C.D", true) -> "#b300ff"
                 content.contains("Eng. Software", true) -> "#ff6f00"
-                content.contains("D.A.M", true) -> "#009eff"
+
+
+
+
 
                 else -> "#9575CD" // Cor default
             }
