@@ -281,7 +281,7 @@ class horarios : AppCompatActivity() {
                 //1 ano
                 content.contains("Álgebra (TP)", true) -> "#ff1f00"
                 content.contains("Analise Matematica I", true) -> "#00ff92"
-                content.contains("Sistemas Digitais", true) -> "#b300ff"
+                content.contains("S.D", true) -> "#b300ff"
                 content.contains("I.E.T", true) -> "#009eff"
                 content.contains("I.P.R.P", true) -> "#9B5DE5"
 

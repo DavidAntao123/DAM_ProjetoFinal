@@ -227,6 +227,7 @@ class lerqrcode : AppCompatActivity() {
         return TextView(this).apply {
 
             this.text = text
+            this.setTextColor(Color.BLACK)
             setPadding(32, 32, 32, 32)
             gravity = Gravity.CENTER
             layoutParams = TableRow.LayoutParams(
@@ -256,51 +257,86 @@ class lerqrcode : AppCompatActivity() {
     }
 
     // Helper function to get cell color based on content
+// Helper function to get cell color based on content
     private fun getCellColor(content: String): String {
         return if (content.isNotEmpty()) {
-            // Assign different colors based on subject
+            // Assign different colors based on subject (Pastel tones for black text readability)
             when {
-                //Outro
+                // Engenharia / Tecnologia (Tons Vermelhos e Rosas claros)
+                content.equals("Tecnologia", true) -> "#FFCDD2"
+                content.equals("E.P", true) -> "#F8BBD0"
+                content.equals("R.M", true) -> "#FFEBEE"
+                content.equals("A.M", true) -> "#C8E6C9"
+                content.equals("S.E.T.R", true) -> "#E1BEE7"
+                content.equals("M.E.I", true) -> "#BBDEFB"
+                content.equals("Auto. II", true) -> "#D1C4E9"
+                content.equals("R.I", true) -> "#F48FB1"
+                content.equals("C.A.T", true) -> "#FFAB91"
+                content.equals("S.T", true) -> "#F06292"
+                content.equals("S.S", true) -> "#B39DDB"
+                content.equals("A.Circ.", true) -> "#B2DFDB"
+                content.equals("Controlo D.", true) -> "#E0F2F1"
+                content.equals("S.D.C", true) -> "#DCEDC8"
+                content.equals("R.H.C", true) -> "#FFCCBC"
+                content.equals("F.S", true) -> "#EF9A9A"
+                content.equals("R.E.I", true) -> "#9FA8DA"
+                content.equals("C.E", true) -> "#C5E1A5"
+                content.equals("S.A.I", true) -> "#FFCC80"
+                content.equals("E.E", true) -> "#FFE082"
+                content.equals("MicroC.", true) -> "#CE93D8"
+                content.equals("Eletronica II.", true) -> "#80CBC4"
+                content.equals("T.S.A", true) -> "#FFD54F"
+                content.equals("Mecatronica", true) -> "#BCAAA4"
+                content.contains("Eletronica II", true) -> "#80DEEA"
+                content.contains("I.R", true) -> "#FFCCBC"
 
-                //TESP
-                content.equals("A.R.S.I", true) -> "#590c4e"
-                content.equals("P.I 2", true) -> "#dedb9b"
-                content.equals("P.M", true) -> "#9bab0e"
-                content.equals("S.E.G.P", true) -> "#ab350e"
-                content.equals("G.S.I", true) -> "#a8326f"
+                // Projetos e Outros (Tons Laranja e Amarelo claros)
+                content.equals("D.P.C", true) -> "#E8F5E9"
+                content.contains("M.E", true) -> "#D1C4E9"
+                content.contains("M.I.T.E.E.R", true) -> "#FFE0B2"
+                content.contains("I.E.I", true) -> "#FCE4EC"
+                content.contains("Projeto", true) -> "#FFF9C4"
+                content.contains("O.T.E", true) -> "#DCEDC8"
 
+                // Matemática e Teoria (Tons Roxos e Azuis claros)
+                content.contains("Matematica", true) -> "#E1BEE7"
+                content.contains("I.E.T", true) -> "#B3E5FC"
+                content.contains("I.P.R.P", true) -> "#D1C4E9"
+                content.contains("H.S.T", true) -> "#C8E6C9"
+                content.contains("E.S", true) -> "#B2EBF2"
 
-                //1 ano
-                content.contains("Álgebra (TP)", true) -> "#ff1f00"
-                content.contains("Analise Matematica I", true) -> "#00ff92"
-                content.contains("Sistemas Digitais", true) -> "#b300ff"
-                content.contains("I.E.T", true) -> "#009eff"
-                content.contains("I.P.R.P", true) -> "#9B5DE5"
+                // TESP (Tons Terra e Cinzas suaves)
+                content.equals("A.R.S.I", true) -> "#D7CCC8"
+                content.equals("P.I 2", true) -> "#F5F5F5"
+                content.equals("P.M", true) -> "#FFF59D"
+                content.equals("S.E.G.P", true) -> "#CFD8DC"
+                content.equals("G.S.I", true) -> "#F8BBD0"
 
-                //2 ano
-                content.contains("Redes I", true) -> "#32a852"
-                content.contains("A.C", true) -> "#328fa8"
-                content.contains("I.W", true) -> "#b89eaf"
+                // 1º Ano
+                content.contains("Álgebra (TP)", true) -> "#FFECB3"
+                content.contains("Analise Matematica I", true) -> "#C8E6C9"
+                content.contains("S.D", true) -> "#E1BEE7"
+                content.contains("I.E.T", true) -> "#B3E5FC"
+                content.contains("I.P.R.P", true) -> "#D1C4E9"
 
-                //3 ano
-                content.contains("I.R.L", true) -> "#ff1f00"
-                content.equals("S.I", true) -> "#00ff92"
-                content.contains("C.D", true) -> "#b300ff"
-                content.contains("Eng. Software", true) -> "#ff6f00"
-                content.contains("D.A.M", true) -> "#ab0e77"
+                // 2º Ano
+                content.contains("Redes I", true) -> "#C5E1A5"
+                content.contains("A.C", true) -> "#B2EBF2"
+                content.contains("I.W", true) -> "#E1F5FE"
 
+                // 3º Ano
+                content.contains("I.R.L", true) -> "#FFCCBC"
+                content.equals("S.I", true) -> "#B9F6CA"
+                content.contains("C.D", true) -> "#D1C4E9"
+                content.contains("Eng. Software", true) -> "#FFE0B2"
+                content.contains("D.A.M", true) -> "#FCE4EC"
 
-
-
-
-                else -> "#9575CD" // Cor default
+                else -> "#F3E5F5" // Cor default suave (Lavanda)
             }
         } else {
-            "#FFFFFF" // White for empty cells
+            "#FFFFFF" // Branco para células vazias
         }
     }
-
-
     // Data classes
     data class TimeSlot(
         val time: String,
