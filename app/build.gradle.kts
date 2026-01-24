@@ -75,5 +75,6 @@ dependencies {
     // implementation("androidx.camera:camera-extensions:${cameraxVersion}")
     implementation(libs.androidx.camera.extensions)
 
-
+    //biblioteca para o qrcode - camara zxing 
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
 }

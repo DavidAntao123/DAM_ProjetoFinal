@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+ Aqui podemos encontrar:
+ - permissões da aplicação (câmara)
+ - as funcionalidades que o telemóvel deve ter
+ - lista de Activities (os ecrãs) da nossa aplicação
+ - qual Activity é o ponto de entrada (LAUNCHER)
+-->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" >
+    <!-- Indica que a aplicação pode usar qualquer tipo de câmara (a da frente e a de trás) -->
     <uses-feature android:name="android.hardware.camera.any" />
+    <!-- Permissão obrigatória para aceder à câmara -->
     <uses-permission android:name="android.permission.CAMERA" />
+    <!--
+    Permissão para escrever no armazenamento externo.
+    necessária em versões antigas do Android
+    -->
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
@@ -15,21 +28,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjFinal" >
+
+        <!-- Activity que mostra os horários (a tabela) -->
         <activity
             android:name=".horarios"
             android:exported="false" />
+        <!-- Activity da câmara (leitura do QR Code) -->
         <activity
             android:name=".cam"
             android:exported="false" />
+
+        <!-- Activity Sobre a App -->
         <activity
             android:name=".sobre"
             android:exported="false" />
+
+        <!-- Activity responsável por ler o QR e abrir o horário correspondente -->
         <activity
             android:name=".lerqrcode"
             android:exported="false" />
+        <!--
+         Activity principal da nossa aplicação (o menu inicial)
+         exported="true" porque contém o intent-filter MAIN/LAUNCHER
+         (é o primeiro ecrã que abre quando a nossa app é iniciada)
+         -->
         <activity
             android:name=".MainActivity"
             android:exported="true" >
+            <!-- Define esta Activity como ponto de entrada  -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

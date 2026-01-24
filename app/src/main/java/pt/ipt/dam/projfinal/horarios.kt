@@ -22,11 +22,11 @@ class horarios : AppCompatActivity() {
 
     val memoriaCores = mutableMapOf(
         "Segunda" to "#FFFFFF",
-        "Terça"   to "#FFFFFF",
-        "Quarta"  to "#FFFFFF",
-        "Quinta"  to "#FFFFFF",
-        "Sexta"   to "#FFFFFF",
-        "Sábado"  to "#FFFFFF"
+        "Terça" to "#FFFFFF",
+        "Quarta" to "#FFFFFF",
+        "Quinta" to "#FFFFFF",
+        "Sexta" to "#FFFFFF",
+        "Sábado" to "#FFFFFF"
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,7 +92,6 @@ class horarios : AppCompatActivity() {
 
         val dias = horarioData.horario.dias
         val timeSlots = horarioData.horario.timeSlots
-
 
 
         // Create header row
@@ -294,9 +293,6 @@ class horarios : AppCompatActivity() {
                 content.equals("S.I", true) -> "#00ff92"
                 content.contains("C.D", true) -> "#b300ff"
                 content.contains("Eng. Software", true) -> "#ff6f00"
-
-
-
 
 
                 else -> "#9575CD" // Cor default
