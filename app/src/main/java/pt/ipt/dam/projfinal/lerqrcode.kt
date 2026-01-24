@@ -14,11 +14,14 @@ import android.widget.Toast
 import com.google.gson.Gson
 import java.io.FileNotFoundException
 
+
 class lerqrcode : AppCompatActivity() {
 
     private lateinit var tableLayout: TableLayout
 
     private lateinit var btnClear: Button
+    private lateinit var btnVoltarQrcode: Button
+
 
     val memoriaCores = mutableMapOf(
         "Segunda" to "#FFFFFF",
@@ -34,7 +37,8 @@ class lerqrcode : AppCompatActivity() {
         setContentView(R.layout.activity_lerqrcode)
 
         tableLayout = findViewById(R.id.tableLayout)
-        btnClear = findViewById(R.id.btnvoltarqrcode)
+        btnVoltarQrcode = findViewById(R.id.btnvoltarqrcode)
+
 
         val urlRecebida = intent.getStringExtra("url")
 
@@ -44,7 +48,7 @@ class lerqrcode : AppCompatActivity() {
             generateEmptyTable()
         }
 
-        btnClear.setOnClickListener {
+        btnVoltarQrcode.setOnClickListener {
             finish()
         }
     }
@@ -84,7 +88,7 @@ class lerqrcode : AppCompatActivity() {
 
         // Create header row
         val header = TableRow(this)
-        header.addView(createCell("Time", "#C5CAE9", true))
+        header.addView(createCell("Horario", "#C5CAE9", true))
         for (dia in dias) {
             header.addView(createCell(dia, "#C5CAE9", true))
         }

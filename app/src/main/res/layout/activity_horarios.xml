@@ -50,7 +50,7 @@ Botão Voltar
                 android:layout_margin="4dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/verde_secundario"
-                android:text="Horário 1"
+                android:text="@string/horario_1ano"
                 android:textColor="@color/branco"
                 android:textStyle="bold" />
 
@@ -62,7 +62,7 @@ Botão Voltar
                 android:layout_margin="4dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/verde_secundario"
-                android:text="Horário 2"
+                android:text="@string/horario_3ano"
                 android:textColor="@color/branco"
                 android:textStyle="bold" />
 
@@ -116,11 +116,11 @@ Botão Voltar
 
     <!-- Botão Voltar-->
     <Button
-        android:id="@+id/btnVoltar"
+        android:id="@+id/btnVoltarHorario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/verde_principal"
-        android:text="Voltar"
+        android:text="@string/voltarHorario"
         android:textColor="@color/branco"
         android:textSize="18sp"
         android:textStyle="bold" />

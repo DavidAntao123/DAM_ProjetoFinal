@@ -42,22 +42,15 @@ Botão Voltar
             android:orientation="horizontal"
             android:padding="12dp">
 
-            <!-- Botão: Horário 1 -->
-
-            <!-- Botão: Horário 2 -->
-
-            <!-- Botão: Limpar tabela -->
             <Button
-                android:id="@+id/btnDownload"
-                android:layout_width="0dp"
+                android:id="@+id/btnvoltarqrcode"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layout_weight="1"
-                android:backgroundTint="@color/verde_secundario"
-                android:text="@string/download"
+                android:backgroundTint="@color/verde_principal"
+                android:text="@string/voltar"
                 android:textColor="@color/branco"
+                android:textSize="18sp"
                 android:textStyle="bold" />
-
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
@@ -95,14 +88,5 @@ Botão Voltar
     </androidx.cardview.widget.CardView>
 
     <!-- Botão Voltar-->
-    <Button
-        android:id="@+id/btnvoltarqrcode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/verde_principal"
-        android:text="@string/voltar"
-        android:textColor="@color/branco"
-        android:textSize="18sp"
-        android:textStyle="bold" />
 
 </LinearLayout>

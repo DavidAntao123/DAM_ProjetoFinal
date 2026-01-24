@@ -19,6 +19,8 @@ class horarios : AppCompatActivity() {
     private lateinit var btnHorario1: Button
     private lateinit var btnHorario2: Button
     private lateinit var btnClear: Button
+    private lateinit var btnVoltarHorario: Button
+
 
     val memoriaCores = mutableMapOf(
         "Segunda" to "#FFFFFF",
@@ -38,6 +40,7 @@ class horarios : AppCompatActivity() {
         btnHorario1 = findViewById(R.id.btnHorario1)
         btnHorario2 = findViewById(R.id.btnHorario2)
         btnClear = findViewById(R.id.btnClear)
+        btnVoltarHorario = findViewById(R.id.btnVoltarHorario)
 
         // Set button click listeners
         btnHorario1.setOnClickListener {
@@ -52,6 +55,9 @@ class horarios : AppCompatActivity() {
             clearTable()
         }
 
+        btnVoltarHorario.setOnClickListener {
+            finish()
+        }
         // Generate empty table initially
         generateEmptyTable()
     }
@@ -96,7 +102,7 @@ class horarios : AppCompatActivity() {
 
         // Create header row
         val header = TableRow(this)
-        header.addView(createCell("Time", "#C5CAE9", true))
+        header.addView(createCell("Horario", "#C5CAE9", true))
         for (dia in dias) {
             header.addView(createCell(dia, "#C5CAE9", true))
         }
