@@ -1,31 +1,283 @@
 {
-  "schedule": {
-    "days": ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado"],
+  "horario": {
+    "dias": ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado"],
     "timeSlots": [
       {
         "time": "08:30 - 09:00",
-        "Segunda": "Programming",
+        "Segunda": "",
         "Terca": "",
-        "Quarta": "Algorithms",
+        "Quarta": "",
         "Quinta": "",
         "Sexta": "",
         "Sabado": ""
       },
       {
         "time": "09:00 - 09:30",
-        "Segunda": "Programming",
-        "Terca": "Databases",
-        "Quarta": "Algorithms",
-        "Quinta": "Networks",
-        "Sexta": "Web Dev",
+        "Segunda": "",
+        "Terca": "",
+        "Quarta": "",
+        "Quinta": "",
+        "Sexta": "",
         "Sabado": ""
       },
       {
         "time": "09:30 - 10:00",
-        "Segunda": "Mobile Dev",
-        "Terca": "Databases",
+        "Segunda": "",
+        "Terca": "",
         "Quarta": "",
-        "Quinta": "AI",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "10:00 - 10:30",
+        "Segunda": "",
+        "Terca": "",
+        "Quarta": "",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "10:30 - 11:00",
+        "Segunda": "",
+        "Terca": "",
+        "Quarta": "",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "11:00 - 11:30",
+        "Segunda": "",
+        "Terca": "C.D",
+        "Quarta": "",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "11:30 - 12:00",
+        "Segunda": "",
+        "Terca": "(PL)",
+        "Quarta": "",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "12:00 - 12:30",
+        "Segunda": "",
+        "Terca": "B128",
+        "Quarta": "",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "12:30 - 13:00",
+        "Segunda": "",
+        "Terca": "Antonio Manso",
+        "Quarta": "",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "13:00 - 13:30",
+        "Segunda": "",
+        "Terca": "",
+        "Quarta": "",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "13:30 - 14:00",
+        "Segunda": "",
+        "Terca": "",
+        "Quarta": "",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "14:00 - 14:30",
+        "Segunda": "I.R.L",
+        "Terca": "S.I",
+        "Quarta": "",
+        "Quinta": "Eng. Software",
+        "Sexta": "D.A.M",
+        "Sabado": ""
+      },
+      {
+        "time": "14:30 - 15:00",
+        "Segunda": "(PL)",
+        "Terca": "(PL)",
+        "Quarta": "",
+        "Quinta": "(PL)",
+        "Sexta": "(PL)",
+        "Sabado": ""
+      },
+      {
+        "time": "15:00 - 15:30",
+        "Segunda": "I153",
+        "Terca": "I153",
+        "Quarta": "",
+        "Quinta": "I154",
+        "Sexta": "I154",
+        "Sabado": ""
+      },
+      {
+        "time": "15:30 - 16:00",
+        "Segunda": "Luis Oliveira",
+        "Terca": "Luis Almeida",
+        "Quarta": "",
+        "Quinta": "Jose Pereira",
+        "Sexta": "Jose Pereira",
+        "Sabado": ""
+      },
+      {
+        "time": "16:00 - 16:30",
+        "Segunda": "",
+        "Terca": "",
+        "Quarta": "",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "16:30 - 17:00",
+        "Segunda": "I.R.L",
+        "Terca": "S.I",
+        "Quarta": "",
+        "Quinta": "Eng. Software",
+        "Sexta": "D.A.M",
+        "Sabado": ""
+      },
+      {
+        "time": "17:00 - 17:30",
+        "Segunda": "(TP)",
+        "Terca": "(TP)",
+        "Quarta": "C.D",
+        "Quinta": "(TP)",
+        "Sexta": "(TP)",
+        "Sabado": ""
+      },
+      {
+        "time": "17:30 - 18:00",
+        "Segunda": "B257",
+        "Terca": "B257",
+        "Quarta": "(TP)",
+        "Quinta": "B255",
+        "Sexta": "O103",
+        "Sabado": ""
+      },
+      {
+        "time": "18:00 - 18:30",
+        "Segunda": "Luis Oliveira",
+        "Terca": "Luis Oliveira",
+        "Quarta": "B257",
+        "Quinta": "Renato Panda",
+        "Sexta": "Paulo Santos",
+        "Sabado": ""
+      },
+      {
+        "time": "18:30 - 19:00",
+        "Segunda": "",
+        "Terca": "",
+        "Quarta": "Antonio Manso",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "19:00 - 19:30",
+        "Segunda": "",
+        "Terca": "",
+        "Quarta": "",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "19:30 - 20:00",
+        "Segunda": "",
+        "Terca": "",
+        "Quarta": "",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "20:00 - 20:30",
+        "Segunda": "",
+        "Terca": "",
+        "Quarta": "",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "20:30 - 21:00",
+        "Segunda": "",
+        "Terca": "",
+        "Quarta": "",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "21:00 - 21:30",
+        "Segunda": "",
+        "Terca": "",
+        "Quarta": "",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "21:30 - 22:00",
+        "Segunda": "",
+        "Terca": "",
+        "Quarta": "",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "22:00 - 22:30",
+        "Segunda": "",
+        "Terca": "",
+        "Quarta": "",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "22:30 - 23:00",
+        "Segunda": "",
+        "Terca": "",
+        "Quarta": "",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "23:00 - 23:30",
+        "Segunda": "",
+        "Terca": "",
+        "Quarta": "",
+        "Quinta": "",
+        "Sexta": "",
+        "Sabado": ""
+      },
+      {
+        "time": "23:30 - 24:00",
+        "Segunda": "",
+        "Terca": "",
+        "Quarta": "",
+        "Quinta": "",
         "Sexta": "",
         "Sabado": ""
       }
