@@ -29,6 +29,8 @@ class horarios : AppCompatActivity() {
     // Botões do ecrã
     private lateinit var btnHorario1: Button
     private lateinit var btnHorario2: Button
+
+
     private lateinit var btnClear: Button
     private lateinit var btnVoltarHorario: Button
 
@@ -68,6 +70,8 @@ class horarios : AppCompatActivity() {
         btnHorario2.setOnClickListener {
             loadSchedule("horario2.json")
         }
+
+
         // Botão Limpar -> apaga a tabela do ecrã
         btnClear.setOnClickListener {
             clearTable()

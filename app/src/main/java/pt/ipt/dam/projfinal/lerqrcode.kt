@@ -285,6 +285,7 @@ class lerqrcode : AppCompatActivity() {
             this.setTextColor(Color.BLACK)
             setPadding(32, 32, 32, 32)
             gravity = Gravity.CENTER
+
             layoutParams = TableRow.LayoutParams(
                 TableRow.LayoutParams.WRAP_CONTENT,
                 TableRow.LayoutParams.WRAP_CONTENT

@@ -42,32 +42,8 @@ Botão Voltar
             android:orientation="horizontal"
             android:padding="12dp">
 
-            <!-- Botão: Horário 1 -->
-            <Button
-                android:id="@+id/btnHorario1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layout_weight="1"
-                android:backgroundTint="@color/verde_secundario"
-                android:text="@string/horario_1ano"
-                android:textColor="@color/branco"
-                android:textStyle="bold" />
 
-
-            <!-- Botão: Horário 2 -->
-            <Button
-                android:id="@+id/btnHorario2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layout_weight="1"
-                android:backgroundTint="@color/verde_secundario"
-                android:text="@string/horario_3ano"
-                android:textColor="@color/branco"
-                android:textStyle="bold" />
-
-            <!-- Botão: Limpar tabela -->
+            <!-- Botão: Favoritar tabela -->
             <Button
                 android:id="@+id/btnClear"
                 android:layout_width="0dp"
@@ -75,7 +51,7 @@ Botão Voltar
                 android:layout_margin="4dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/verde_secundario"
-                android:text="@string/clearTable"
+                android:text="abc"
                 android:textColor="@color/branco"
                 android:textStyle="bold" />
 

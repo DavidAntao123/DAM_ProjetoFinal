@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
          * abre a Activity horarios, onde é mostrado o horário em formato de tabela
          */
         btnIrHorario.setOnClickListener {
-            val intent = Intent(this, horarios::class.java)
+            val intent = Intent(this, selecionar::class.java)
             startActivity(intent)
         }
     }

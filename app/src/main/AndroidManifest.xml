@@ -47,6 +47,10 @@
         <activity
             android:name=".lerqrcode"
             android:exported="false" />
+        <!-- Activity COMENTARRRR -->
+        <activity
+            android:name=".selecionar"
+            android:exported="false" />
         <!--
          Activity principal da nossa aplicação (o menu inicial)
          exported="true" porque contém o intent-filter MAIN/LAUNCHER
