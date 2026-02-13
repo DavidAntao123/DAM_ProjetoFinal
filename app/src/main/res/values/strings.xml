@@ -23,5 +23,20 @@
     <string name="favoritar">Favoritar</string>
     <string name="anoSelecionado">Ano Selecionado: </string>
 
+    <string name="ir_horario">Ir para Horário</string>
+
+    <string name="toast_ano">Ano: %1$s</string>
+    <string name="toast_curso">Curso: %1$s</string>
+    <string name="erro_campos">Por favor, preencha todos os campos</string>
+
+    <string name="qr_invalido">QR Code inválido</string>
+    <string name="sala_detectada">Sala detetada: %1$s</string>
+    <string name="permissao_negada">Permissão negada</string>
+
+    <string name="horario_carregado">Carregado: %1$s</string>
+    <string name="ficheiro_nao_encontrado">Ficheiro não encontrado: %1$s</string>
+    <string name="tabela_vazia">Tabela vazia</string>
+    <string name="tabela_limpa">Tabela limpa</string>
+
 
 </resources>

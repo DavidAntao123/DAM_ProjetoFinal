@@ -49,7 +49,8 @@ class lerqrcode : AppCompatActivity() {
         "Sábado"  to "#FFFFFF"
     )
     /**
-     * Método chamado quando o ecrã abre
+     * Método executado quando a Activity é criada.
+     * Inicializa componentes e carrega o horário.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -110,7 +111,14 @@ class lerqrcode : AppCompatActivity() {
             Log.e("ERRO_JSON", "Erro: ${e.message}")
             generateEmptyTable()
         }
-    }    // Function to generate table from JSON data
+    }
+
+
+
+    /**
+     * Cria a tabela do horário a partir do JSON.
+     */
+
     private fun generateTableFromJson(horarioData: ScheduleResponse) {
         // Limpa a tabela antes de desenhar
         tableLayout.removeAllViews()
@@ -135,114 +143,27 @@ class lerqrcode : AppCompatActivity() {
             // Coluna da hora
             row.addView(createCell(timeSlot.time, "#E8EAF6", false))
 
-            /**
-             * A partir daqui é feito o preenchimento das colunas de todos os dias da semana
-             * Cada célula recebe uma cor baseada no conteúdo ->disciplina
-             * e usa memoriaCores para manter continuidade visual
-             */
-            //---------------------------
-            //--- Segunda-feira ------------
-            //---------------------------
-            var corAtual = getCellColor(timeSlot.Segunda)
 
-            if (timeSlot.Segunda.isEmpty()) {
-                //se a celula estiver vazia , guarda a core branca (nula)
-                memoriaCores["Segunda"] = "#FFFFFF"
-            } else {
-                //caso a celula nao for nula (cor default ou branca), ira guardar a cor
-                if (corAtual != "#9575CD" && corAtual != "#FFFFFF") {
-                    memoriaCores["Segunda"] = corAtual
+            listOf(
+                "Segunda" to timeSlot.Segunda,
+                "Terca" to timeSlot.Terca,
+                "Quarta" to timeSlot.Quarta,
+                "Quinta" to timeSlot.Quinta,
+                "Sexta" to timeSlot.Sexta,
+                "Sabado" to timeSlot.Sabado
+            ).forEach { (dia, conteudo) ->
+
+                val corAtual = getCellColor(conteudo)
+
+                if (conteudo.isEmpty()) {
+                    memoriaCores[dia] = "#FFFFFF"
+                } else if (corAtual != "#9575CD" && corAtual != "#FFFFFF") {
+                    memoriaCores[dia] = corAtual
                 }
+
+                val corParaPintar = memoriaCores[dia] ?: "#FFFFFF"
+                row.addView(createCell(conteudo, corParaPintar, false))
             }
-            // Utiliza a cor  que foi armazenada no memoriaCores
-            var corParaPintar = memoriaCores["Segunda"] ?: "#FFFFFF"
-
-            //Adiciona a celula com a cor certa
-            row.addView(createCell(timeSlot.Segunda, corParaPintar, false))
-
-            //---------------------------
-            //--- Terça-feira ------------
-            //---------------------------
-
-
-            corAtual = getCellColor(timeSlot.Terca)
-
-            if (timeSlot.Terca.isEmpty()) {
-                memoriaCores["Terca"] = "#FFFFFF"
-            } else {
-                if (corAtual != "#9575CD" && corAtual != "#FFFFFF") {
-                    memoriaCores["Terca"] = corAtual
-                }
-            }
-            corParaPintar = memoriaCores["Terca"] ?: "#FFFFFF"
-
-            row.addView(createCell(timeSlot.Terca, corParaPintar, false))
-
-            //---------------------------
-            //--- Quarta-feira ------------
-            //---------------------------
-
-            corAtual = getCellColor(timeSlot.Quarta)
-
-            if (timeSlot.Quarta.isEmpty()) {
-                memoriaCores["Quarta"] = "#FFFFFF"
-            } else {
-                if (corAtual != "#9575CD" && corAtual != "#FFFFFF") {
-                    memoriaCores["Quarta"] = corAtual
-                }
-            }
-            corParaPintar = memoriaCores["Quarta"] ?: "#FFFFFF"
-
-            row.addView(createCell(timeSlot.Quarta, corParaPintar, false))
-
-            //---------------------------
-            //--- Quinta-feira ------------
-            //---------------------------
-            corAtual = getCellColor(timeSlot.Quinta)
-
-            if (timeSlot.Quinta.isEmpty()) {
-                memoriaCores["Quinta"] = "#FFFFFF"
-            } else {
-                if (corAtual != "#9575CD" && corAtual != "#FFFFFF") {
-                    memoriaCores["Quinta"] = corAtual
-                }
-            }
-            corParaPintar = memoriaCores["Quinta"] ?: "#FFFFFF"
-            row.addView(createCell(timeSlot.Quinta, corParaPintar, false))
-
-            //---------------------------
-            //--- Sexta-feira ------------
-            //---------------------------
-
-            corAtual = getCellColor(timeSlot.Sexta)
-
-            if (timeSlot.Sexta.isEmpty()) {
-                memoriaCores["Sexta"] = "#FFFFFF"
-            } else {
-                if (corAtual != "#9575CD" && corAtual != "#FFFFFF") {
-                    memoriaCores["Sexta"] = corAtual
-                }
-            }
-            corParaPintar = memoriaCores["Sexta"] ?: "#FFFFFF"
-            row.addView(createCell(timeSlot.Sexta, corParaPintar, false))
-
-            //---------------------------
-            //--- Sabado -----------------
-            //---------------------------
-
-            corAtual = getCellColor(timeSlot.Sabado)
-
-
-            if (timeSlot.Sabado.isEmpty()) {
-                memoriaCores["Sabado"] = "#FFFFFF"
-            } else {
-                if (corAtual != "#9575CD" && corAtual != "#FFFFFF") {
-                    memoriaCores["Sabado"] = corAtual
-                }
-            }
-            corParaPintar = memoriaCores["Sabado"] ?: "#FFFFFF"
-            row.addView(createCell(timeSlot.Sabado, corParaPintar, false))
-
 
             tableLayout.addView(row)
         }
@@ -253,8 +174,10 @@ class lerqrcode : AppCompatActivity() {
      * generateEmptyTable()
      * Cria uma tabela vazia apenas com o cabeçalho,
      * usada quando não foi possível carregar um JSON.
+     * Gera tabela vazia em caso de erro
      */
     private fun generateEmptyTable() {
+
         tableLayout.removeAllViews()
 
         val dias = listOf("Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado")
@@ -267,7 +190,7 @@ class lerqrcode : AppCompatActivity() {
         }
         tableLayout.addView(header)
 
-        Toast.makeText(this, "Empty table generated", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.tabela_vazia), Toast.LENGTH_SHORT).show()
     }
 
     /**
@@ -279,6 +202,7 @@ class lerqrcode : AppCompatActivity() {
      * Borda preta
      */
     private fun createCell(text: String, color: String, isHeader: Boolean): TextView {
+
         return TextView(this).apply {
 
             this.text = text
@@ -313,12 +237,11 @@ class lerqrcode : AppCompatActivity() {
 
 
     /**
-     * clearTable()
-     * Remove todas as linhas da tabela
+     * Limpa todas as linhas da tabela
      */
     private fun clearTable() {
         tableLayout.removeAllViews()
-        Toast.makeText(this, "Table cleared", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.tabela_limpa), Toast.LENGTH_SHORT).show()
     }
 
 
