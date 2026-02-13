@@ -71,7 +71,8 @@ class selecionar : AppCompatActivity() {
          */
         txtCurso.setOnItemClickListener { parent, _, position, _ ->
             val selected = parent.getItemAtPosition(position).toString()
-            Toast.makeText(this, getString(R.string.toast_curso, selected), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.toast_curso, selected), Toast.LENGTH_SHORT)
+                .show()
         }
 
         /**

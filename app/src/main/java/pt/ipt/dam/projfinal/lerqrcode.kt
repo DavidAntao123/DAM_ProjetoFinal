@@ -31,6 +31,7 @@ class lerqrcode : AppCompatActivity() {
 
     // Tabela onde o horário será desenhado
     private lateinit var tableLayout: TableLayout
+
     // Botão voltar -> id btnvoltarqrcode
     private lateinit var btnVoltarQrcode: Button
 
@@ -42,12 +43,13 @@ class lerqrcode : AppCompatActivity() {
      */
     val memoriaCores = mutableMapOf(
         "Segunda" to "#FFFFFF",
-        "Terça"   to "#FFFFFF",
-        "Quarta"  to "#FFFFFF",
-        "Quinta"  to "#FFFFFF",
-        "Sexta"   to "#FFFFFF",
-        "Sábado"  to "#FFFFFF"
+        "Terça" to "#FFFFFF",
+        "Quarta" to "#FFFFFF",
+        "Quinta" to "#FFFFFF",
+        "Sexta" to "#FFFFFF",
+        "Sábado" to "#FFFFFF"
     )
+
     /**
      * Método executado quando a Activity é criada.
      * Inicializa componentes e carrega o horário.
@@ -112,7 +114,6 @@ class lerqrcode : AppCompatActivity() {
             generateEmptyTable()
         }
     }
-
 
 
     /**
@@ -340,6 +341,7 @@ class lerqrcode : AppCompatActivity() {
         val Sexta: String,
         val Sabado: String
     )
+
     /**
      * ScheduleData
      * Guarda a lista de dias e lista das linhas ->TimeSlots
@@ -348,6 +350,7 @@ class lerqrcode : AppCompatActivity() {
         val dias: List<String>,
         val timeSlots: List<TimeSlot>
     )
+
     /**
      * ScheduleResponse
      * Estrutura principal do JSON horario -> ScheduleData

@@ -3,6 +3,7 @@ package pt.ipt.dam.projfinal
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+
 /**
  * Activity responsável por mostrar as informações sobre a aplicação
  * - Curso / UC / Ano letivo

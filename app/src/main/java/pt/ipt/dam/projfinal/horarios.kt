@@ -24,13 +24,13 @@ import java.io.FileNotFoundException
  * Tabela com cabeçalho e as células sao coloridas por disciplina
  */
 class horarios : AppCompatActivity() {
+
     // TableLayout onde o horário será desenhado -> linha a linha
     private lateinit var tableLayout: TableLayout
+
     // Botões do ecrã
     private lateinit var btnHorario1: Button
     private lateinit var btnHorario2: Button
-
-
     private lateinit var btnClear: Button
     private lateinit var btnVoltarHorario: Button
 
@@ -48,7 +48,8 @@ class horarios : AppCompatActivity() {
     )
 
     /**
-     * Método chamado quando a Activity é criada
+     * Método executado quando a Activity é criada.
+     * Inicializa componentes e cria tabela vazia inicial.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,21 +63,33 @@ class horarios : AppCompatActivity() {
         btnClear = findViewById(R.id.btnClear)
         btnVoltarHorario = findViewById(R.id.btnVoltarHorario)
 
-        // Botão Horário 1 -> carrega o ficheiro horario1.json da pasta assets
+        /**
+         * Botão Horário 1
+         * Carrega horario1.json da pasta assets
+         */
         btnHorario1.setOnClickListener {
             loadSchedule("horario1.json")
         }
-        // Botão Horário 2 -> carrega o ficheiro horario2.json da pasta assets
+        /**
+         * Botão Horário 2
+         * Carrega horario2.json da pasta assets
+         */
         btnHorario2.setOnClickListener {
             loadSchedule("horario2.json")
         }
 
 
-        // Botão Limpar -> apaga a tabela do ecrã
+        /**
+         * Botão Limpar
+         * Remove todas as linhas da tabela
+         */
         btnClear.setOnClickListener {
             clearTable()
         }
-        // Botão Voltar -> volta para a pagina inicial
+        /**
+         * Botão Voltar
+         * Fecha esta Activity
+         */
         btnVoltarHorario.setOnClickListener {
             finish()
         }
@@ -89,7 +102,7 @@ class horarios : AppCompatActivity() {
      * loadSchedule()
      * Lê um ficheiro JSON a partir da pasta assets,
      * converte para objetos Kotlin com Gson,
-     * e desenha a tabela com os dados.
+     * e desenha a tabela com os dados
      */
     private fun loadSchedule(filename: String) {
         try {
@@ -107,28 +120,41 @@ class horarios : AppCompatActivity() {
 
             // Mostra a mensagem no ecrã com o nome do horário que é carregado
             val horarioName = when (filename) {
-                "horario1.json" -> "Horário 1"
-                "horario2.json" -> "Horário 2"
-                else -> "horario"
+                "horario1.json" -> getString(R.string.horario_1ano)
+                "horario2.json" -> getString(R.string.horario_3ano)
+                else -> getString(R.string.horariosTitulo)
             }
-            Toast.makeText(this, "Carregado: $horarioName", Toast.LENGTH_SHORT).show()
+
+            Toast.makeText(
+                this,
+                getString(R.string.horario_carregado, horarioName),
+                Toast.LENGTH_SHORT
+            ).show()
 
         } catch (e: FileNotFoundException) {
-            Toast.makeText(this, "Ficheiro nao encontrado: $filename", Toast.LENGTH_SHORT).show()
-            e.printStackTrace()
+            Toast.makeText(
+                this,
+                getString(R.string.ficheiro_nao_encontrado, filename),
+                Toast.LENGTH_SHORT
+            ).show()
+
         } catch (e: Exception) {
-            Toast.makeText(this, "Erro a carregar horario", Toast.LENGTH_SHORT).show()
-            e.printStackTrace()
+
+            Toast.makeText(this, getString(R.string.erro_carregar_horario), Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
+
     /**
      * generateTableFromJson()
+     *  Cria a tabela do horário a partir dos dados JSON.
      * Recebe os dados já convertidos do JSON e depois
      * Cria o cabeçalho ->dias da semana
      * Cria as linhas de horários -> timeSlots
      * Pinta depois cada célula com base na disciplina
      */
+
     private fun generateTableFromJson(horarioData: ScheduleResponse) {
         // Limpa o conteúdo antigo da tabela
         tableLayout.removeAllViews()
@@ -141,7 +167,7 @@ class horarios : AppCompatActivity() {
         // Criar cabeçalho
         val header = TableRow(this)
         // Primeira célula do cabeçalho -> no nosso caso a hora
-        header.addView(createCell("Horário", "#C5CAE9", true))
+        header.addView(createCell(getString(R.string.horariosTitulo), "#C5CAE9", true))
         // Células do cabeçalho para cada dia
         for (dia in dias) {
             header.addView(createCell(dia, "#C5CAE9", true))
@@ -157,116 +183,36 @@ class horarios : AppCompatActivity() {
             // Coluna da hora
             row.addView(createCell(timeSlot.time, "#E8EAF6", false))
 
-
             /**
-             *  A seguir vai:
-             * Calcular a cor para cada célula de cada dia
-             * Usar memoriaCores para manter consistência quando existe continuidade
+             * Percorre todos os dias da semana e, para cada célula:
+             * obtém o conteúdo (disciplina)
+             * calcula a cor correspondente
+             * guarda a cor para manter continuidade visual
+             * cria a célula e adiciona à linha da tabela
+             *
+             * se a célula estiver vazia → branco
+             * se for uma cadeira → guardar cor
              */
-            //---------------------------
-            //--- Segunda-feira ------------
-            //---------------------------
+            listOf(
+                "Segunda" to timeSlot.Segunda,
+                "Terca" to timeSlot.Terca,
+                "Quarta" to timeSlot.Quarta,
+                "Quinta" to timeSlot.Quinta,
+                "Sexta" to timeSlot.Sexta,
+                "Sabado" to timeSlot.Sabado
+            ).forEach { (dia, conteudo) ->
 
-            var corAtual = getCellColor(timeSlot.Segunda)
+                val corAtual = getCellColor(conteudo)
 
-            if (timeSlot.Segunda.isEmpty()) {
-                //se a celula estiver vazia , guarda a core branca (nula)
-                memoriaCores["Segunda"] = "#FFFFFF"
-            } else {
-                //caso a celula nao for nula (cor default ou branca), ira guardar a cor
-                if (corAtual != "#9575CD" && corAtual != "#FFFFFF") {
-                    memoriaCores["Segunda"] = corAtual
+                if (conteudo.isEmpty()) {
+                    memoriaCores[dia] = "#FFFFFF"
+                } else if (corAtual != "#9575CD" && corAtual != "#FFFFFF") {
+                    memoriaCores[dia] = corAtual
                 }
+
+                val corParaPintar = memoriaCores[dia] ?: "#FFFFFF"
+                row.addView(createCell(conteudo, corParaPintar, false))
             }
-            // Utiliza a cor  que foi armazenada no memoriaCores
-            var corParaPintar = memoriaCores["Segunda"] ?: "#FFFFFF"
-
-            //Adiciona a celula com a cor certa
-            row.addView(createCell(timeSlot.Segunda, corParaPintar, false))
-
-            //---------------------------
-            //--- Terça-feira ------------
-            //---------------------------
-
-            corAtual = getCellColor(timeSlot.Terca)
-
-            if (timeSlot.Terca.isEmpty()) {
-                memoriaCores["Terca"] = "#FFFFFF"
-            } else {
-                if (corAtual != "#9575CD" && corAtual != "#FFFFFF") {
-                    memoriaCores["Terca"] = corAtual
-                }
-            }
-            corParaPintar = memoriaCores["Terca"] ?: "#FFFFFF"
-
-            row.addView(createCell(timeSlot.Terca, corParaPintar, false))
-
-            //---------------------------
-            //--- Quarta-feira ------------
-            //---------------------------
-
-            corAtual = getCellColor(timeSlot.Quarta)
-
-            if (timeSlot.Quarta.isEmpty()) {
-                memoriaCores["Quarta"] = "#FFFFFF"
-            } else {
-                if (corAtual != "#9575CD" && corAtual != "#FFFFFF") {
-                    memoriaCores["Quarta"] = corAtual
-                }
-            }
-            corParaPintar = memoriaCores["Quarta"] ?: "#FFFFFF"
-
-            row.addView(createCell(timeSlot.Quarta, corParaPintar, false))
-
-            //---------------------------
-            //--- Quinta-feira ------------
-            //---------------------------
-
-            corAtual = getCellColor(timeSlot.Quinta)
-
-            if (timeSlot.Quinta.isEmpty()) {
-                memoriaCores["Quinta"] = "#FFFFFF"
-            } else {
-                if (corAtual != "#9575CD" && corAtual != "#FFFFFF") {
-                    memoriaCores["Quinta"] = corAtual
-                }
-            }
-            corParaPintar = memoriaCores["Quinta"] ?: "#FFFFFF"
-            row.addView(createCell(timeSlot.Quinta, corParaPintar, false))
-
-            //---------------------------
-            //--- Sexta-feira ------------
-            //---------------------------
-
-            corAtual = getCellColor(timeSlot.Sexta)
-
-            if (timeSlot.Sexta.isEmpty()) {
-                memoriaCores["Sexta"] = "#FFFFFF"
-            } else {
-                if (corAtual != "#9575CD" && corAtual != "#FFFFFF") {
-                    memoriaCores["Sexta"] = corAtual
-                }
-            }
-            corParaPintar = memoriaCores["Sexta"] ?: "#FFFFFF"
-            row.addView(createCell(timeSlot.Sexta, corParaPintar, false))
-
-            //---------------------------
-            //--- Sabado -----------------
-            //---------------------------
-
-            corAtual = getCellColor(timeSlot.Sabado)
-
-
-            if (timeSlot.Sabado.isEmpty()) {
-                memoriaCores["Sabado"] = "#FFFFFF"
-            } else {
-                if (corAtual != "#9575CD" && corAtual != "#FFFFFF") {
-                    memoriaCores["Sabado"] = corAtual
-                }
-            }
-            corParaPintar = memoriaCores["Sabado"] ?: "#FFFFFF"
-            row.addView(createCell(timeSlot.Sabado, corParaPintar, false))
-
 
             tableLayout.addView(row)
         }
@@ -284,13 +230,13 @@ class horarios : AppCompatActivity() {
 
         // Header
         val header = TableRow(this)
-        header.addView(createCell("Horário", "#C5CAE9", true))
+        header.addView(createCell(getString(R.string.horariosTitulo), "#C5CAE9", true))
         for (dia in dias) {
             header.addView(createCell(dia, "#C5CAE9", true))
         }
         tableLayout.addView(header)
 
-        Toast.makeText(this, "Tabela limpa gerada", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.tabela_vazia), Toast.LENGTH_SHORT).show()
     }
 
 
@@ -300,8 +246,9 @@ class horarios : AppCompatActivity() {
      */
     private fun clearTable() {
         tableLayout.removeAllViews()
-        Toast.makeText(this, "Tabela Limpa", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.tabela_limpa), Toast.LENGTH_SHORT).show()
     }
+
 
     /**
      * createCell()
@@ -347,7 +294,10 @@ class horarios : AppCompatActivity() {
         }
     }
 
-    // Funçao para ter a cor para cada bloco baseada na cadeira
+
+    /**
+     * Define cor da célula conforme a cadeira
+     */
     private fun getCellColor(content: String): String {
         return if (content.isNotEmpty()) {
             when {
@@ -386,10 +336,10 @@ class horarios : AppCompatActivity() {
     }
 
 
-    // Data classes -> modelo do JSON
     /**
      * TimeSlot
      * Representa uma linha do horário -> hora e conteudo de cada dia
+     * MODELOS JSON
      */
     data class TimeSlot(
         val time: String,
@@ -400,6 +350,7 @@ class horarios : AppCompatActivity() {
         val Sexta: String,
         val Sabado: String
     )
+
     /**
      * ScheduleData
      * Guarda a lista de dias e lista de timeSlots -> linhas
@@ -408,6 +359,7 @@ class horarios : AppCompatActivity() {
         val dias: List<String>,
         val timeSlots: List<TimeSlot>
     )
+
     /**
      * ScheduleResponse
      * Estrutura principal do JSON horario -> ScheduleData
