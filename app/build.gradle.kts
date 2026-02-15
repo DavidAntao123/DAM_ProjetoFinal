@@ -77,4 +77,7 @@ dependencies {
 
     //biblioteca para o qrcode - camara zxing 
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
 }

@@ -1,5 +1,8 @@
 package pt.ipt.dam.projfinal
 
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.GET
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -14,6 +17,12 @@ import androidx.appcompat.app.AppCompatActivity
  */
 class selecionar : AppCompatActivity() {
 
+    data class Horario(
+        val turma: String,
+        val curso: String,
+        val ano: String,
+        val horario: String
+    )
     // Lista de anos disponíveis
     private val anos = arrayOf("1", "2", "3")
 
