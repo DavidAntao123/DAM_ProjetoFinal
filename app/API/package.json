@@ -1,0 +1,19 @@
+{
+  "name": "horarios",
+  "version": "1.0.0",
+  "description": "api de horarios",
+  "main": "index.js",
+  "scripts": {
+    "devStart": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1",
+    "mongoose": "^8.23.0"
+  },
+  "devDependencies": {
+    "dotenv": "^17.3.1",
+    "nodemon": "^3.1.11"
+  }
+}

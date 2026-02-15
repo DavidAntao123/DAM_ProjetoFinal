@@ -1,0 +1,30 @@
+GET http://localhost:3000/horarios
+
+###
+
+GET http://localhost:3000/horarios/LEI3
+
+###
+
+POST http://localhost:3000/horarios
+Content-Type: application/json
+
+{
+    "turma": "DTAG1",
+    "curso": "DTAG",
+    "ano": "1",
+    "horario": "idk"
+}
+
+
+###
+DELETE  http://localhost:3000/horarios/LEI3
+
+###
+PATCH   http://localhost:3000/horarios/LEI5
+Content-Type: application/json
+
+{
+    "turma": "novo LEI67",
+    "horario": "novo idk"
+}

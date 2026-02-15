@@ -97,7 +97,7 @@ Botão Voltar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/verde_principal"
-        android:text="@string/voltar"
+        android:text="@string/voltarHorario"
         android:textColor="@color/branco"
         android:textSize="18sp"
         android:textStyle="bold" />
