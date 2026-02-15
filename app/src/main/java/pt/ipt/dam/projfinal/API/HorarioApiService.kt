@@ -8,10 +8,12 @@ import retrofit2.http.Path
 interface HorarioApiService {
 
     @GET("horarios")
-    suspend fun getAllHorarios(): List<selecionar.Horario>
+    suspend fun getALL(): List<selecionar.Horario>
 
     @GET("horarios/{turma}")
-    suspend fun getHorarioByTurma(@Path("turma") turma: String): selecionar.Horario
-    @GET("turmas")
-    fun getListaTurmas(): Call<List<String>>
+    suspend fun getHorario(@Path("turma") turma: String): selecionar.Horario
+
+    @GET("horarios/cursos")
+    fun getCursos(): Call<List<String>>
 }
+
