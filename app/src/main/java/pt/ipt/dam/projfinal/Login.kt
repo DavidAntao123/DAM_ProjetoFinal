@@ -1,86 +1,85 @@
 package pt.ipt.dam.projfinal
 
-// Imports necessários para navegar entre Activities, usar Toasts e componentes UI
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import pt.ipt.dam.projfinal.API.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 /**
- * Login Activity
- * Este ecrã permite ao utilizador autenticar-se antes de entrar na aplicação.
- * Contém:
- * Campo Email
- * Campo Password
- * Botão Entrar
- *
- * Se a password estiver correta, abre o MainActivity
+ * Activity responsável pelo login do utilizador
  */
 class Login : AppCompatActivity() {
 
-    /**
-     * Método chamado quando esta Activity é criada
-     * Aqui ligamos o layout XML e configuramos o botão de login
-     */
+    lateinit var txtEmail: EditText
+    lateinit var txtPassword: EditText
+    lateinit var btnLogin: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Liga esta Activity ao layout activity_login.xml
         setContentView(R.layout.activity_login)
 
-        // Referências aos componentes do layout através dos IDs
-        val edtEmail = findViewById<EditText>(R.id.edtEmail)
-        val edtPassword = findViewById<EditText>(R.id.edtPassword)
-        val btnLogin = findViewById<Button>(R.id.btnLogin)
+        // Liga os campos do XML ao Kotlin
+        txtEmail = findViewById(R.id.txtEmail)
+        txtPassword = findViewById(R.id.txtPassword)
+        btnLogin = findViewById(R.id.btnLogin)
 
-        /**
-         * Clique no botão Login
-         * Vai validar os campos e autenticar o utilizador
-         */
+        // Botão Entrar
         btnLogin.setOnClickListener {
-
-            // Vai buscar o texto introduzido pelo utilizador
-            val email = edtEmail.text.toString()
-            val password = edtPassword.text.toString()
-
-            // Verifica se algum campo está vazio
-            if (email.isEmpty() || password.isEmpty()) {
-
-                // Mostra mensagem de erro
-                Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show()
-
-            } else {
-
-                /**
-                 * Autenticação simples
-                 * Apenas aceita estas passwords:
-                 * Email: admin@ipt.pt
-                 * Password: 1234
-                 */
-                if (email == "admin@ipt.pt" && password == "1234") {
-
-                    // Mensagem de sucesso
-                    Toast.makeText(this, "Login com sucesso", Toast.LENGTH_SHORT).show()
-
-                    // Cria Intent para abrir o menu principal (MainActivity)
-                    val intent = Intent(this, MainActivity::class.java)
-
-                    // Abre o MainActivity
-                    startActivity(intent)
-
-                    // Fecha esta Activity para não voltar atrás
-                    finish()
-
-                } else {
-
-                    // Caso a password esteja errada
-                    Toast.makeText(this, "Password inválida", Toast.LENGTH_SHORT).show()
-                }
-            }
+            fazerLogin()
         }
     }
+
+    /**
+     * Função chamada ao carregar no botão Entrar
+     */
+    private fun fazerLogin() {
+
+        val email = txtEmail.text.toString()
+        val pass = txtPassword.text.toString()
+
+        // Cria objeto para enviar à API
+        val request = LoginRequest(email, pass)
+
+        // Chamada Retrofit
+        RetrofitClient.loginApi.login(request)
+            .enqueue(object : Callback<LoginResponse> {
+
+                override fun onResponse(
+                    call: Call<LoginResponse>,
+                    response: Response<LoginResponse>
+                ) {
+
+                    // Login OK
+                    if (response.isSuccessful) {
+
+                        guardarSessao(response.body()!!.email)
+
+                        // Abre MainActivity
+                        startActivity(Intent(this@Login, MainActivity::class.java))
+                        finish()
+
+                    } else {
+                        Toast.makeText(this@Login, "Login inválido", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                    Toast.makeText(this@Login, "Erro ligação API", Toast.LENGTH_SHORT).show()
+                }
+            })
+    }
+
+    /**
+     * Guarda email em SharedPreferences
+     */
+    private fun guardarSessao(email: String) {
+        val prefs = getSharedPreferences("user", MODE_PRIVATE)
+        prefs.edit().putString("email", email).apply()
+    }
 }
-
-

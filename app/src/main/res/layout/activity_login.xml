@@ -8,6 +8,7 @@
 
     <!-- IMAGEM DE FUNDO -->
     <ImageView
+        android:src="@drawable/autenticacao"
         android:id="@+id/imgLogin"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -38,7 +39,7 @@
 
             <!-- EMAIL -->
             <EditText
-                android:id="@+id/edtEmail"
+                android:id="@+id/txtEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Email"
@@ -48,7 +49,7 @@
 
             <!-- PASSWORD -->
             <EditText
-                android:id="@+id/edtPassword"
+                android:id="@+id/txtPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
