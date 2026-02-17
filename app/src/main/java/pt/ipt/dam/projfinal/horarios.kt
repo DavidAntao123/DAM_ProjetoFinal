@@ -24,7 +24,6 @@ import android.widget.Toast
 class horarios : AppCompatActivity() {
     // Tabela onde o horário será desenhado
     private lateinit var tableLayout: TableLayout
-    private lateinit var btnClear: Button
     private lateinit var btnVoltarHorario: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,9 +76,9 @@ class horarios : AppCompatActivity() {
 
         // Criação do cabeçalho da tabela
         val header = TableRow(this)
-        header.addView(createCell(getString(R.string.horariosTitulo), "#C5CAE9", true))
+        header.addView(createCell(getString(R.string.horariosTitulo), getString(R.string.Lavender_Blue), true))
         for (dia in dias) {
-            header.addView(createCell(dia.nome, "#C5CAE9", true))
+            header.addView(createCell(dia.nome, getString(R.string.Lavender_Blue), true))
         }
         tableLayout.addView(header)
 
@@ -93,7 +92,7 @@ class horarios : AppCompatActivity() {
                 val row = TableRow(this)
 
                 // Primeira coluna: A Hora
-                row.addView(createCell(timeSlotTime, "#E8EAF6", false))
+                row.addView(createCell(timeSlotTime, getString(R.color.branco_cinzento), false))
 
                 // Preenche cada dia
                 dias.forEach { dia ->
@@ -122,9 +121,9 @@ class horarios : AppCompatActivity() {
         tableLayout.removeAllViews()
         val diasPadrao = listOf("Segunda", "Terca", "Quarta", "Quinta", "Sexta", "Sabado")
         val header = TableRow(this)
-        header.addView(createCell(getString(R.string.horariosTitulo), "#C5CAE9", true))
+        header.addView(createCell(getString(R.string.horariosTitulo),getString(R.string.Lavender_Blue) , true))
         for (dia in diasPadrao) {
-            header.addView(createCell(dia, "#C5CAE9", true))
+            header.addView(createCell(dia, getString(R.string.Lavender_Blue), true))
         }
         tableLayout.addView(header)
     }
@@ -162,7 +161,7 @@ class horarios : AppCompatActivity() {
     data class TimeSlot(
         val time: String,
         val value: String,
-        val cor: String? = null, // Campo de cor da API
+        val cor: String? = null,
         val _id: Any? = null
     ) : java.io.Serializable
 

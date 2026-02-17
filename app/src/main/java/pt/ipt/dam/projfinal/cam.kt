@@ -197,7 +197,7 @@ class cam : AppCompatActivity() {
             runOnUiThread {
                 Toast.makeText(
                     this,
-                    "R.string.cam_qrInvalido",
+                    getString(R.string.cam_QRInvaldio),
                     Toast.LENGTH_SHORT
                 ).show()
                 isScanning = true

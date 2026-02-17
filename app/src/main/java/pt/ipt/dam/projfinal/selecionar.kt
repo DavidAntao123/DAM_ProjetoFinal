@@ -134,22 +134,23 @@ class selecionar : AppCompatActivity() {
      */
     private fun loadCursos(txtCurso: AutoCompleteTextView) {
 
+        // Faz uma chamada assíncrona para obter a lista de cursos
         RetrofitClient.horarioApi.getCursos().enqueue(object : Callback<List<String>> {
             override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
+                //Chamado quando a API responde com sucesso
                 if (response.isSuccessful) {
                     val listaCursos = response.body()
                     if (listaCursos != null && listaCursos.isNotEmpty()) {
                         runOnUiThread {
+                            // Cria um adaptador para converter a lista em itens de dropdown
                             val adapter = ArrayAdapter(
                                 this@selecionar,
                                 android.R.layout.simple_list_item_1,
                                 listaCursos
                             )
                             txtCurso.setAdapter(adapter)
-                            println("DEBUG_API: Recebi ${listaCursos.size} cursos: $listaCursos")
                         }
                     } else {
-                        println("DEBUG_API: A lista veio vazia!")
                         runOnUiThread {
                             Toast.makeText(
                                 this@selecionar,
@@ -159,12 +160,10 @@ class selecionar : AppCompatActivity() {
                         }
                     }
                 } else {
-                    println("DEBUG_API: Erro na resposta: ${response.code()}")
                 }
             }
-
+            //Chamado quando ocorre erro na ligação
             override fun onFailure(call: Call<List<String>>, t: Throwable) {
-                println("DEBUG_API: Falha na chamada: ${t.message}")
                 runOnUiThread {
                     Toast.makeText(
                         this@selecionar,
@@ -176,39 +175,42 @@ class selecionar : AppCompatActivity() {
         })
     }
 
+
+    // Carrega a lista de salas da API e configura o AutoCompleteTextView
     private fun loadSalas(txtSala: AutoCompleteTextView) {
-        // Use RetrofitClient instead of creating a new Retrofit instance
+        // Faz uma chamada assíncrona para obter a lista de salas
         RetrofitClient.horarioApi.getSalas().enqueue(object : Callback<List<String>> {
+            // Chamado quando a API responde com sucesso
             override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
+
                 if (response.isSuccessful) {
+                    // Obtém a lista de salas do corpo da resposta
                     val listaSalas = response.body()
                     if (listaSalas != null && listaSalas.isNotEmpty()) {
                         runOnUiThread {
+                            // Cria um adaptador para mostrar as salas no dropdown
                             val adapter = ArrayAdapter(
                                 this@selecionar,
                                 android.R.layout.simple_list_item_1,
                                 listaSalas
                             )
                             txtSala.setAdapter(adapter)
-                            println("DEBUG_API: Recebi ${listaSalas.size} cursos: $listaSalas")
                         }
                     } else {
-                        println("DEBUG_API: A lista veio vazia!")
+                        // Lista vazia ou nula - mostra mensagem ao utilizador
                         runOnUiThread {
                             Toast.makeText(
                                 this@selecionar,
-                                "Nenhum curso encontrado",
+                                "Nenhum sala encontrado",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
                     }
                 } else {
-                    println("DEBUG_API: Erro na resposta: ${response.code()}")
                 }
             }
-
+            //Chamado quando ocorre erro na ligação
             override fun onFailure(call: Call<List<String>>, t: Throwable) {
-                println("DEBUG_API: Falha na chamada: ${t.message}")
                 runOnUiThread {
                     Toast.makeText(
                         this@selecionar,
@@ -219,6 +221,7 @@ class selecionar : AppCompatActivity() {
             }
         })
     }
+
     /**
      * Chama API usando Coroutine e abre Activity horarios
      */
@@ -227,8 +230,9 @@ class selecionar : AppCompatActivity() {
             try {
                 val horario = RetrofitClient.horarioApi.getHorarioByTurma(turma)
 
-
+                // Cria uma Intent para abrir a Activity de horários
                 val intent = Intent(this@selecionar, horarios::class.java)
+
                 // Envia dados pela Intent
                 intent.putExtra("horario_data", horario.horario)
                 intent.putExtra("turma", horario.turma)
@@ -239,7 +243,7 @@ class selecionar : AppCompatActivity() {
                 startActivity(intent)
 
             } catch (e: Exception) {
-                println("DEBUG_API_ERROR: ${e.message}")
+                // Captura qualquer exceção durante a chamada à API
                 Toast.makeText(
                     this@selecionar,
                     "Erro ao carregar horário: ${e.message}",
@@ -250,13 +254,16 @@ class selecionar : AppCompatActivity() {
         }
     }
 
+    // GET do horário de uma sala específica na API e abre Activity horarios
     private fun fetchHorariobySala(sala: String) {
         lifecycleScope.launch {
             try {
                 val horario = RetrofitClient.horarioApi.getHorarioBySala(sala)
 
+                // Cria uma Intent para abrir a Activity de horários
 
                 val intent = Intent(this@selecionar, horarios::class.java)
+                // Envia dados pela Intent
                 intent.putExtra("horario_data", horario.horario)
                 intent.putExtra("turma", horario.turma)
                 intent.putExtra("curso", horario.curso)
@@ -267,7 +274,7 @@ class selecionar : AppCompatActivity() {
                 startActivity(intent)
 
             } catch (e: Exception) {
-                println("DEBUG_API_ERROR: ${e.message}")
+                // Captura qualquer exceção durante a chamada à API
                 Toast.makeText(
                     this@selecionar,
                     "Erro ao carregar horário: ${e.message}",

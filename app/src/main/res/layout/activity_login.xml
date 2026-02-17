@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+Ecrã de autenticação (Login/Registo)
+Permite ao utilizador fazer login, registar-se ou entrar como convidado
+-->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -17,6 +21,11 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <!-- CARD LOGIN -->
+    <!--
+    CardView que contém o formulário de login
+    Funciona como um container com fundo branco semitransparente e cantos arredondados
+    Elevação de 8dp para criar efeito de profundidade (sombra)
+    -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardLogin"
         android:layout_width="0dp"
@@ -39,7 +48,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Bem-vindo"
+                android:text="@string/activity_login_BemVindo"
                 android:textSize="28sp"
                 android:textStyle="bold"
                 android:textColor="@color/verde_principal"
@@ -51,7 +60,7 @@
                 android:id="@+id/txtEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Email"
+                android:hint="@string/activity_login_Email"
                 android:inputType="textEmailAddress"
                 android:background="@android:drawable/edit_text"
                 android:padding="12dp"/>
@@ -62,7 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:hint="Password"
+                android:hint="@string/activity_login_Password"
                 android:inputType="textPassword"
                 android:background="@android:drawable/edit_text"
                 android:padding="12dp"/>
@@ -73,43 +82,44 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Entrar"
+                android:text="@string/activity_login_Entrar"
                 android:textSize="20sp"
                 android:textColor="@color/branco"
                 android:textStyle="bold"
                 android:backgroundTint="@color/verde_principal"/>
 
-            <!-- BOTÃO REGISTAR -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+            <!-- BOTÃO REGISTAR  -->
             <Button
                 android:id="@+id/btnRegistar"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Registar"
+                android:layout_weight="1"
+                android:layout_marginEnd="5dp"
+                android:text="@string/activity_login_Registar"
                 android:textSize="18sp"
-                android:textColor="@color/verde_principal"
-                android:backgroundTint="@android:color/transparent"
-                android:background="@android:drawable/edit_text"
-                style="?android:attr/borderlessButtonStyle"/>
+                android:textColor="@color/branco"
+                android:textStyle="bold"
+                android:backgroundTint="@color/verde_secundario"/>
 
-            <!-- BOTÃO ENTRAR COMO CONVIDADO -->
+            <!-- BOTÃO CONVIDADO  -->
             <Button
                 android:id="@+id/btnGuest"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:layout_marginStart="5dp"
                 android:text="@string/continuar_como_convidado"
                 android:textSize="16sp"
-                android:textColor="@color/preto"
-                android:backgroundTint="@android:color/transparent"
-                style="?android:attr/borderlessButtonStyle"/>
-
-            <!-- LINHA DIVISÓRIA (opcional) -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="15dp"
-                android:background="#E0E0E0"/>
+                android:textColor="@color/branco"
+                android:textStyle="bold"
+                android:backgroundTint="@color/verde_secundario"/>
+        </LinearLayout>
 
 
         </LinearLayout>

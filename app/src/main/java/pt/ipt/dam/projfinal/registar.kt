@@ -30,27 +30,13 @@ class registar : AppCompatActivity() {
         setContentView(R.layout.activity_registar)
 
         // Inicializa as views
-        initViews()
-
-        // Configura os listeners
-        setupListeners()
-    }
-
-    /**
-     * Inicializa as views do layout
-     */
-    private fun initViews() {
         txtEmail = findViewById(R.id.txtEmail)
         txtPassword = findViewById(R.id.txtPassword)
         txtConfirmarPassword = findViewById(R.id.txtConfirmarPassword)
         btnRegistar = findViewById(R.id.btnRegistar)
         txtLogin = findViewById(R.id.txtLogin)
-    }
 
-    /**
-     * Configura os listeners dos botões
-     */
-    private fun setupListeners() {
+        // Configura os listeners
         btnRegistar.setOnClickListener {
             registarUtilizador()
         }
@@ -61,7 +47,8 @@ class registar : AppCompatActivity() {
         }
     }
 
-    /**
+
+    /*
      * Função chamada ao carregar no botão Registar
      */
     private fun registarUtilizador() {
@@ -74,34 +61,23 @@ class registar : AppCompatActivity() {
             return
         }
 
-        // Mostra loading no botão
-        mostrarLoading(true)
-
         // Cria objeto para enviar à API
         val request = RegistarRequest(email, password)
 
         // Chamada Retrofit
+        // Faz a chamada à API de registo usando Retrofit
+        // enqueue() executa a chamada de forma assíncrona (em background)
         RetrofitClient.loginApi.register(request)
             .enqueue(object : Callback<RegistarResponse> {
                 override fun onResponse(
                     call: Call<RegistarResponse>,
                     response: Response<RegistarResponse>
                 ) {
-                    mostrarLoading(false)
-
-                    println("========== RESPOSTA REGISTO ==========")
-                    println("Código HTTP: ${response.code()}")
-
+                    // Bloco try-catch para capturar erros inesperados
                     try {
+                        // Verifica se a resposta foi bem-sucedida
                         if (response.isSuccessful) {
                             val registoResponse = response.body()
-                            println("Sucesso: $registoResponse")
-
-                            Toast.makeText(
-                                this@registar,
-                                "Conta criada com sucesso!",
-                                Toast.LENGTH_SHORT
-                            ).show()
 
                             // Volta para o ecrã de login
                             finish()
@@ -110,25 +86,13 @@ class registar : AppCompatActivity() {
                             val errorBody = response.errorBody()?.string()
                             println("Erro: $errorBody")
 
-                            when (response.code()) {
-                                400 -> mostrarErro("Email já registado")
-                                409 -> mostrarErro("Email já existe na base de dados")
-                                else -> mostrarErro("Erro no servidor: ${response.code()}")
-                            }
                         }
                     } catch (e: Exception) {
-                        println("Erro ao processar resposta: ${e.message}")
                         mostrarErro("Erro ao processar resposta")
                     }
                 }
-
+                // Chamado quando ocorre uma falha na ligação à API
                 override fun onFailure(call: Call<RegistarResponse>, t: Throwable) {
-                    mostrarLoading(false)
-
-                    println("========== ERRO LIGAÇÃO REGISTO ==========")
-                    println("Erro: ${t.message}")
-                    t.printStackTrace()
-
                     Toast.makeText(
                         this@registar,
                         "Erro de ligação: ${t.message}",
@@ -144,39 +108,30 @@ class registar : AppCompatActivity() {
     private fun validarCampos(email: String, password: String, confirmarPassword: String): Boolean {
         // Verifica campos vazios
         if (email.isEmpty() || password.isEmpty() || confirmarPassword.isEmpty()) {
-            mostrarErro("Preencha todos os campos")
+            mostrarErro(getString(R.string.registar_erro_PrencherCampos))
             return false
         }
 
         // Valida formato do email
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            mostrarErro("Email inválido")
+            mostrarErro(getString(R.string.registar_erro_EmailErrado))
             return false
         }
 
         // Valida tamanho da password
         if (password.length < 4) {
-            mostrarErro("A password deve ter pelo menos 4 caracteres")
+            mostrarErro(getString(R.string.registar_erro_Password))
             return false
         }
 
         // Valida se as passwords coincidem
         if (password != confirmarPassword) {
-            mostrarErro("As passwords não coincidem")
+            mostrarErro(getString(R.string.registar_erro_PasswordDiferente))
             return false
         }
 
         return true
     }
-
-    /**
-     * Controla o estado de loading do botão
-     */
-    private fun mostrarLoading(isLoading: Boolean) {
-        btnRegistar.isEnabled = !isLoading
-        btnRegistar.text = if (isLoading) "A registar..." else "Registar"
-    }
-
     /**
      * Mostra mensagem de erro em Toast
      */

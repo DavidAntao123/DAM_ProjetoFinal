@@ -35,8 +35,7 @@
 
     <!-- HORÁRIOS -->
     <string name="horariosTitulo">Horários Disponíveis</string>
-    <string name="horario_1ano">Horário 1º Ano</string>
-    <string name="horario_3ano">Horário 3º Ano</string>
+    <string name="horarios_ErroHorario">Nenhum Horário</string>
     <string name="clearTable">Limpar</string>
     <string name="horario_carregado">Carregado: %1$s</string>
     <string name="ficheiro_nao_encontrado">Ficheiro não encontrado: %1$s</string>
@@ -52,7 +51,24 @@
     <string name="cam_codigoSala">Código da sala: %1$s</string>
     <string name="cam_qrInvalido">Código Inválido</string>
     <string name="cam_erroSala">Erro na sala: %1$s: %2$s</string>
-    <string name="horarios_ErroHorario">Nenhum Horário</string>
-    <string name="continuar_como_convidado">Continuar como convidado</string>
+    <string name="cam_QRInvaldio">QR code Invalido</string>
+
+    <!-- regitsar.xml strings -->
+    <string name="registar_erro_PrencherCampos">Preencha todos os campos</string>
+    <string name="registar_erro_EmailErrado">Email inválido</string>
+    <string name="registar_erro_Password">A password deve ter pelo menos 4 caracteres</string>
+    <string name="registar_erro_PasswordDiferente">As passwords não coincidem</string>
+
+
+    <!-- activity.xml strings -->
+
+    <string name="activity_login_BemVindo">Bem-vindo</string>
+    <string name="activity_login_Email">Email</string>
+    <string name="activity_login_Password">Password</string>
+    <string name="activity_login_Entrar">Entrar</string>
+    <string name="activity_login_Registar">Registar</string>
+
+
+    <string name="continuar_como_convidado">Convidado</string>
 
 </resources>

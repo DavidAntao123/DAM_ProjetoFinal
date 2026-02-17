@@ -52,11 +52,19 @@ class Login : AppCompatActivity() {
             fazerLogin()
         }
 
+        /**
+         * Quando o utilizador carrega no botão "Registar",
+         * a activity de registar é aberta
+         */
         btnRegistar.setOnClickListener {
             // Abre a activity de registo
             startActivity(Intent(this@Login, registar::class.java))
         }
 
+        /**
+         * Quando o utilizador carrega no botão "Registar",
+         * a Main Activity é aberta
+         */
         btnGuest.setOnClickListener {
             startActivity(Intent(this@Login, MainActivity::class.java))
             finish()
@@ -71,42 +79,36 @@ class Login : AppCompatActivity() {
         val email = txtEmail.text.toString()
         val pass = txtPassword.text.toString()
 
-        // Cria objeto para enviar à API
+        // Verifica se os campos não estão vazios antes de enviar para a API
+        if (email.isEmpty() || pass.isEmpty()) {
+            Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show()
+            return  // Interrompe a execução da função
+        }
+
+        // Cria objeto com os dados para enviar à API
+        // A classe LoginRequest contém os campos email e password
         val request = LoginRequest(email, pass)
 
+
         // Chamada Retrofit
+        // Faz uma chamada assíncrona à API de login
+        // enqueue() executa a chamada em background sem bloquear a UI
         RetrofitClient.loginApi.login(request)
             .enqueue(object : Callback<LoginResponse> {
 
+                //Chamado quando a API responde (com sucesso ou erro HTTP)
                 override fun onResponse(
                     call: Call<LoginResponse>,
                     response: Response<LoginResponse>
                 ) {
-
-                    println("========== RESPOSTA RECEBIDA ==========")
-                    println("5. Código HTTP: ${response.code()}")
-                    println("6. Mensagem: ${response.message()}")
-                    println("7. Headers: ${response.headers()}")
-
-                    // Tenta ler o corpo da resposta
-                    try {
-                        if (response.isSuccessful) {
-                            val body = response.body()
-                            println("8. Corpo sucesso: $body")
-                        } else {
-                            val errorBody = response.errorBody()?.string()
-                            println("8. Corpo erro: $errorBody")
-                        }
-                    } catch (e: Exception) {
-                        println("8. Erro ao ler corpo: ${e.message}")
-                    }
-
-                        guardarSessao(response.body()!!.email)
-
                     when {
+                        //Login bem-sucedido
                         response.isSuccessful -> {
+                            // Extrai o corpo da resposta (objeto LoginResponse)
                             val loginResponse = response.body()
+
                             if (loginResponse != null) {
+                                // Guarda o email do utilizador nas preferências (sessão)
                                 guardarSessao(loginResponse.email, "user")
                                 Toast.makeText(this@Login, "Login OK!", Toast.LENGTH_SHORT).show()
                                 startActivity(Intent(this@Login, MainActivity::class.java))
@@ -114,30 +116,15 @@ class Login : AppCompatActivity() {
                             } else {
                             }
                         }
-                        response.code() == 404 -> {
-                            // Mostra mensagem mais detalhada
-                            Toast.makeText(
-                                this@Login,
-                                "Email não registado. Verifique se:\n" +
-                                        "1. O email '$email' existe na BD\n" +
-                                        "2. O servidor está em ${RetrofitClient.BASE_URL}\n" +
-                                        "3. A rota é /user/login ou /users/login?",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
                         else -> {
                         }
                     }
                 }
 
+                /**
+                 * Chamado quando ocorre uma falha na ligação à API
+                 */
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-
-                    println("========== ERRO DE LIGAÇÃO ==========")
-                    println("Erro: ${t.message}")
-                    println("Causa: ${t.cause}")
-                    t.printStackTrace()
-                    println("======================================")
-
                     Toast.makeText(
                         this@Login,
                         "Erro de ligação:\n${t.message}\nVerifique IP: ${RetrofitClient.BASE_URL}",
@@ -160,7 +147,5 @@ class Login : AppCompatActivity() {
             apply()
         }
 
-        // DEBUG: confirmar que guardou
-        println("Email guardado: $email, Tipo: $tipo")
     }
 }

@@ -24,23 +24,30 @@ object RetrofitClient {
      * 10.0.2.2 → emulador Android
      * IP local → telemóvel físico
      */
-    const val BASE_URL = "http://10.0.2.2:3000/"
+    const val BASE_URL = "http://10.10.208.71:3000/"
     /**
-     * Instância da interface HorarioApiService.
+     * Instância da interface HorarioApiService e LoginApiService.
      * Criada apenas quando for utilizada pela primeira vez (lazy).
      */
 
-    // Configuração base do Retrofit (uma vez só)
     private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    // Duas interfaces diferentes, mas usando o mesmo retrofit
+    /**
+     * Instância da interface HorarioApiService.
+     * Responsável por todas as chamadas relacionadas com horários e salas.
+     * Criada apenas quando for utilizada pela primeira vez (lazy initialization).
+     */
     val horarioApi: HorarioApiService by lazy {
         retrofit.create(HorarioApiService::class.java)
     }
-
+    /**
+     * Instância da interface LoginApiService.
+     * Responsável por todas as chamadas relacionadas com autenticação (login/registo).
+     * Criada apenas quando for utilizada pela primeira vez (lazy initialization).
+     */
     val loginApi: LoginApiService by lazy {
         retrofit.create(LoginApiService::class.java)
     }
