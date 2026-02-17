@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!--
 Ecrã principal da aplicação
 Overlay escuro para garantir que os textos ficam legíveis
-Botões para navegar para a leitura de QR Code e a secção Sobre
+Botões para navegar para a leitura de QR Code e a secção sobre
 -->
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -89,7 +89,7 @@ Botões para navegar para a leitura de QR Code e a secção Sobre
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Botão que abre a secção Sobre a Aplicacao -->
+    <!-- Botão que abre a secção sobre a Aplicacao -->
     <Button
         android:id="@+id/btnQR"
         android:layout_width="0dp"

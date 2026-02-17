@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
  * MainActivity
  * Ecrã principal -> Menu inicial da aplicação
  * Abrir o ecrã de leitura do QR Code (cam)
- * Abrir o ecrã "Sobre a Aplicação" (sobre)
+ * Abrir o ecrã "sobre a Aplicação" (sobre)
  * Abrir o ecrã de horários
  */
 class MainActivity : AppCompatActivity() {
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         // Procurar os botões do layout através do ID
         // botão "Ler QR Code"
         val btnQR = findViewById<Button>(R.id.btnQR)
-        // botão "Sobre a App"
+        // botão "sobre a App"
         val btnSobre = findViewById<Button>(R.id.btnSobre)
         // botão "Horários"
         val btnIrHorario = findViewById<Button>(R.id.btnHorario)
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         /**
-         * Clique no botão Sobre
+         * Clique no botão sobre
          * abre a Activity sobre, que contém as informações do nosso projeto
          */
         btnSobre.setOnClickListener {

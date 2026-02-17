@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ AndroidManifest.xml
+ Ficheiro principal de configuração da aplicação Android.
+
+ Aqui são definidos:
+ permissões da aplicação
+ funcionalidades necessárias do dispositivo
+ lista de Activities
+ qual Activity é o ponto de entrada da aplicação
+-->
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Indica que a aplicação pode usar qualquer tipo de câmara (a da frente e a de trás) -->
-    <uses-feature android:name="android.hardware.camera.any" /> <!-- Permissão obrigatória para aceder à câmara -->
+    <!--
+         Indica que a aplicação pode utilizar qualquer tipo de câmara
+         (frontal ou traseira)
+    -->
+    <uses-feature android:name="android.hardware.camera.any" />
+    <!--
+     Permissão obrigatória para permitir acesso à câmara
+     utilizada para leitura de QR Codes
+    -->
     <uses-permission android:name="android.permission.CAMERA" />
     <!--
     Permissão para escrever no armazenamento externo.
@@ -13,56 +32,66 @@
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
 
+    <!--
+      Permite ligações HTTP (necessário para comunicar com a API local
+      através do endereço 10.0.2.2)
+    -->
+    <!-- Configurações gerais da aplicação -->
     <application
 
-        android:usesCleartextTraffic="true"
-
         android:allowBackup="true"
+
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ProjFinal">
+        android:theme="@style/Theme.ProjFinal"
+        android:usesCleartextTraffic="true">
 
-        <!-- LOGIN vai ser o PRIMEIRO ECRA -->
+        <!--
+         Activity de Login
+         É o primeiro ecrã da aplicação (LAUNCHER)
+        -->
         <activity
             android:name=".Login"
             android:exported="true">
-
+            <!-- Define esta Activity como ponto de entrada da app -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!-- MENU PRINCIPAL -->
+        <!-- Activity do menu principal -->
         <activity
             android:name=".MainActivity"
             android:exported="false" />
 
-        <!-- SELECIONAR HORÁRIO -->
+        <!-- Activity responsável por selecionar o ano e curso -->
         <activity
             android:name=".selecionar"
             android:exported="false" />
 
-        <!-- HORÁRIOS -->
+        <!-- Activity que mostra os horários -->
         <activity
             android:name=".horarios"
             android:exported="false" />
 
-        <!-- CÂMARA -->
+        <!-- Activity da câmara para leitura do QR Code -->
         <activity
             android:name=".cam"
             android:exported="false" />
 
-        <!-- QR CODE -->
+        <!--
+        QR CODE
         <activity
             android:name=".lerqrcode"
             android:exported="false" />
+        -->
 
-        <!-- SOBRE -->
+        <!-- Activity Sobre a aplicação -->
         <activity
             android:name=".sobre"
             android:exported="false" />
