@@ -44,4 +44,14 @@
     <string name="tabela_vazia">Tabela vazia</string>
     <string name="tabela_limpa">Tabela limpa</string>
 
+
+
+    <!-- cam_activity -->
+    <string name="cam_sala">Sala: %1$s</string>
+    <string name="cam_erroQR">Erro ao processar QR Code</string>
+    <string name="cam_codigoSala">Código da sala: %1$s</string>
+    <string name="cam_qrInvalido">Código Inválido</string>
+    <string name="cam_erroSala">Erro na sala: %1$s: %2$s</string>
+    <string name="horarios_ErroHorario">Nenhum Horário</string>
+
 </resources>

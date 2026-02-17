@@ -42,8 +42,6 @@ class cam : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        Log.d(TAG, "onCreate: Iniciando activity de câmera")
-
         // Inicializa ViewBinding
         binding = ActivityCamBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -56,16 +54,13 @@ class cam : AppCompatActivity() {
          * Fecha esta Activity e regressa ao menu principal
          */
         binding.btnvoltar.setOnClickListener {
-            Log.d(TAG, "Botão voltar pressionado")
             finish()
         }
 
         // Verifica permissões da câmara
         if (allPermissionsGranted()) {
-            Log.d(TAG, "Permissões já concedidas, iniciando câmera")
             startCamera()
         } else {
-            Log.d(TAG, "Solicitando permissões")
             requestPermissions()
         }
     }
@@ -74,19 +69,16 @@ class cam : AppCompatActivity() {
      * Inicializa a câmara com CameraX e começa a analisar frames
      */
     private fun startCamera() {
-        Log.d(TAG, "startCamera: Iniciando câmera")
 
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
 
         cameraProviderFuture.addListener({
 
             val cameraProvider = cameraProviderFuture.get()
-            Log.d(TAG, "CameraProvider obtido com sucesso")
 
             // Preview em tempo real
             val preview = Preview.Builder().build().also {
                 it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
-                Log.d(TAG, "Preview configurado")
             }
 
             // Analyzer para processar imagens e detetar QR Codes
@@ -95,19 +87,15 @@ class cam : AppCompatActivity() {
                 .build()
                 .also {
                     it.setAnalyzer(cameraExecutor) { imageProxy ->
-                        Log.d(TAG, "Frame recebido para análise")
                         processImageProxy(imageProxy)
                     }
-                    Log.d(TAG, "ImageAnalyzer configurado")
                 }
 
             // Usa câmara traseira
             val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
-            Log.d(TAG, "Usando câmera traseira")
 
             try {
                 cameraProvider.unbindAll()
-                Log.d(TAG, "Unbind all completed")
 
                 cameraProvider.bindToLifecycle(
                     this,
@@ -115,10 +103,8 @@ class cam : AppCompatActivity() {
                     preview,
                     imageAnalyzer
                 )
-                Log.d(TAG, "Câmera ligada ao lifecycle com sucesso")
 
             } catch (exc: Exception) {
-                Log.e(TAG, "Erro ao ligar a câmara", exc)
             }
 
         }, ContextCompat.getMainExecutor(this))
@@ -129,12 +115,10 @@ class cam : AppCompatActivity() {
      */
     @androidx.annotation.OptIn(ExperimentalGetImage::class)
     private fun processImageProxy(imageProxy: ImageProxy) {
-        Log.d(TAG, "processImageProxy: Processando frame")
 
         val mediaImage = imageProxy.image
 
         if (mediaImage != null && isScanning) {
-            Log.d(TAG, "Frame tem imagem e scanning está ativo")
 
             val image = InputImage.fromMediaImage(
                 mediaImage,
@@ -147,32 +131,27 @@ class cam : AppCompatActivity() {
                 .build()
 
             val scanner = BarcodeScanning.getClient(options)
-            Log.d(TAG, "Scanner ML Kit configurado")
 
             scanner.process(image)
                 .addOnSuccessListener { barcodes ->
-                    Log.d(TAG, "Scanner processado com sucesso. Barcodes encontrados: ${barcodes.size}")
 
                     for (barcode in barcodes) {
-                        Log.d(TAG, "Barcode rawValue: ${barcode.rawValue}")
 
                         barcode.rawValue?.let { salaId ->
-                            Log.d(TAG, "QR Code detectado - Código da sala: $salaId")
+                            Log.d(TAG, getString(R.string.cam_sala, salaId))
                             isScanning = false
                             handleQRCodeResult(salaId)
                         }
                     }
                 }
                 .addOnFailureListener { e ->
-                    Log.e(TAG, "Erro ao processar QR Code", e)
+                    Log.e(TAG, getString(R.string.cam_erroQR), e)
                 }
                 .addOnCompleteListener {
                     imageProxy.close()
-                    Log.d(TAG, "ImageProxy fechado")
                 }
 
         } else {
-            Log.d(TAG, "Frame ignorado - mediaImage null: ${mediaImage == null}, isScanning: $isScanning")
             imageProxy.close()
         }
     }
@@ -183,8 +162,7 @@ class cam : AppCompatActivity() {
      */
     private fun handleQRCodeResult(salaId: String) {
 
-        Log.d(TAG, "=== HANDLE QR CODE RESULT ===")
-        Log.d(TAG, "Código da sala lido: $salaId")
+        Log.d(TAG, getString(R.string.cam_codigoSala, salaId))
 
         // Validação básica - não pode ser vazio
         if (salaId.isNotBlank()) {
@@ -192,26 +170,22 @@ class cam : AppCompatActivity() {
             runOnUiThread {
                 Toast.makeText(
                     this,
-                    "Sala detectada: $salaId",
+                    getString(R.string.cam_sala, salaId),
                     Toast.LENGTH_SHORT
                 ).show()
-                Log.d(TAG, "Toast mostrado para sala: $salaId")
             }
 
-            // Faz a requisição à API usando o Retrofit
-            Log.d(TAG, "Chamando fetchHorarioBySala para sala: $salaId")
             fetchHorarioBySala(salaId)
 
         } else {
-            Log.e(TAG, "Código da sala vazio ou inválido")
+            Log.e(TAG, getString(R.string.cam_qrInvalido))
             runOnUiThread {
                 Toast.makeText(
                     this,
-                    "QR Code inválido. Código da sala não reconhecido.",
+                    "R.string.cam_qrInvalido",
                     Toast.LENGTH_SHORT
                 ).show()
                 isScanning = true
-                Log.d(TAG, "Scanning reativado")
             }
         }
     }
@@ -220,25 +194,12 @@ class cam : AppCompatActivity() {
      * Busca o horário da sala usando o Retrofit
      */
     private fun fetchHorarioBySala(sala: String) {
-        Log.d(TAG, "=== FETCH HORARIO BY SALA ===")
-        Log.d(TAG, "Buscando horário para sala: $sala")
 
         lifecycleScope.launch {
             try {
-                Log.d(TAG, "Fazendo chamada Retrofit para sala: $sala")
 
-                // Chama a API usando o Retrofit
                 val horarioResponse = RetrofitClient.instance.getHorarioBySala(sala)
 
-                Log.d(TAG, "Resposta recebida da API")
-                Log.d(TAG, "HorarioResponse: $horarioResponse")
-                Log.d(TAG, "Sala no response: ${horarioResponse.sala}")
-                Log.d(TAG, "Turma no response: ${horarioResponse.turma}")
-                Log.d(TAG, "Curso no response: ${horarioResponse.curso}")
-                Log.d(TAG, "Ano no response: ${horarioResponse.ano}")
-
-                // Cria Intent para abrir a activity de horários
-                Log.d(TAG, "Criando Intent para horarios activity")
                 val intent = Intent(this@cam, horarios::class.java)
 
                 // Passa todos os dados necessários
@@ -248,31 +209,24 @@ class cam : AppCompatActivity() {
                 intent.putExtra("ano", horarioResponse.ano)
                 intent.putExtra("sala", horarioResponse.sala)
 
-                Log.d(TAG, "Extras adicionados à Intent")
 
                 // Inicia a activity e fecha a câmara
-                Log.d(TAG, "Iniciando horarios activity")
                 startActivity(intent)
-                Log.d(TAG, "startActivity chamado - deve mudar de tela")
 
-                Log.d(TAG, "Finalizando cam activity")
                 finish()
-                Log.d(TAG, "finish chamado - cam activity fechada")
 
             } catch (e: Exception) {
-                Log.e(TAG, "ERRO ao carregar horário: ${e.message}", e)
                 e.printStackTrace()
 
                 runOnUiThread {
                     Toast.makeText(
                         this@cam,
-                        "Erro ao carregar horário da sala $sala: ${e.message}",
+                        getString(R.string.cam_erroSala, sala, e.message),
                         Toast.LENGTH_LONG
                     ).show()
 
                     // Reativa a leitura para tentar novamente
                     isScanning = true
-                    Log.d(TAG, "Scanning reativado após erro")
                 }
             }
         }

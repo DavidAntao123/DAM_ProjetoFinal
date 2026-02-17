@@ -46,10 +46,9 @@ class horarios : AppCompatActivity() {
             )
             generateTableFromJson(fullResponse)
 
-            supportActionBar?.title = "$curso $ano - Turma: $turma - Sala: $sala"
         } else {
             generateEmptyTable()
-            Toast.makeText(this, "Nenhum dado de horário recebido", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.horarios_ErroHorario), Toast.LENGTH_SHORT).show()
         }
 
         btnVoltarHorario.setOnClickListener { finish() }
