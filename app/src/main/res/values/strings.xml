@@ -53,5 +53,6 @@
     <string name="cam_qrInvalido">Código Inválido</string>
     <string name="cam_erroSala">Erro na sala: %1$s: %2$s</string>
     <string name="horarios_ErroHorario">Nenhum Horário</string>
+    <string name="continuar_como_convidado">Continuar como convidado</string>
 
 </resources>

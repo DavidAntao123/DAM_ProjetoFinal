@@ -215,7 +215,7 @@ class cam : AppCompatActivity() {
         lifecycleScope.launch {
             try {
 
-                val horarioResponse = RetrofitClient.instance.getHorarioBySala(sala)
+                val horarioResponse = RetrofitClient.horarioApi.getHorarioBySala(sala)
 
                 val intent = Intent(this@cam, horarios::class.java)
 

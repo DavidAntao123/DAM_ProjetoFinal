@@ -134,7 +134,7 @@ class selecionar : AppCompatActivity() {
      */
     private fun loadCursos(txtCurso: AutoCompleteTextView) {
 
-        RetrofitClient.instance.getCursos().enqueue(object : Callback<List<String>> {
+        RetrofitClient.horarioApi.getCursos().enqueue(object : Callback<List<String>> {
             override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
                 if (response.isSuccessful) {
                     val listaCursos = response.body()
@@ -178,7 +178,7 @@ class selecionar : AppCompatActivity() {
 
     private fun loadSalas(txtSala: AutoCompleteTextView) {
         // Use RetrofitClient instead of creating a new Retrofit instance
-        RetrofitClient.instance.getSalas().enqueue(object : Callback<List<String>> {
+        RetrofitClient.horarioApi.getSalas().enqueue(object : Callback<List<String>> {
             override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
                 if (response.isSuccessful) {
                     val listaSalas = response.body()
@@ -225,7 +225,7 @@ class selecionar : AppCompatActivity() {
     private fun fetchHorariobyTurma(turma: String) {
         lifecycleScope.launch {
             try {
-                val horario = RetrofitClient.instance.getHorarioByTurma(turma)
+                val horario = RetrofitClient.horarioApi.getHorarioByTurma(turma)
 
 
                 val intent = Intent(this@selecionar, horarios::class.java)
@@ -253,7 +253,7 @@ class selecionar : AppCompatActivity() {
     private fun fetchHorariobySala(sala: String) {
         lifecycleScope.launch {
             try {
-                val horario = RetrofitClient.instance.getHorarioBySala(sala)
+                val horario = RetrofitClient.horarioApi.getHorarioBySala(sala)
 
 
                 val intent = Intent(this@selecionar, horarios::class.java)

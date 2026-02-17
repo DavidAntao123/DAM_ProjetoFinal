@@ -1,6 +1,4 @@
-
-
-package pt.ipt.dam.projfinal.API
+package pt.ipt.dam.projfinal.API.Extras
 
 /**
  * LoginResponse
@@ -16,7 +14,7 @@ package pt.ipt.dam.projfinal.API
  * Esta classe é usada pelo Retrofit para converter
  * automaticamente a resposta JSON da API em objeto Kotlin.
  */
-data class LoginResponse(
+data class RegistarResponse(
     val message: String,
     val email: String
 )

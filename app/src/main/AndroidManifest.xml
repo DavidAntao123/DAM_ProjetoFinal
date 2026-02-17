@@ -84,6 +84,13 @@
             android:name=".cam"
             android:exported="false" />
 
+        <!-- Activity para registar -->
+        <activity
+            android:name=".registar"
+            android:exported="false" />
+
+
+
         <!--
         QR CODE
         <activity

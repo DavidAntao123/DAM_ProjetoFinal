@@ -1,6 +1,4 @@
-
-
-package pt.ipt.dam.projfinal.API
+package pt.ipt.dam.projfinal.API.Extras
 
 
 /**
@@ -16,7 +14,7 @@ package pt.ipt.dam.projfinal.API
  * Este objeto é convertido automaticamente em JSON pelo Retrofit
  * antes de ser enviado para o servidor Node.js
  */
-data class LoginRequest(
+data class RegistarRequest(
     val email: String,
     val password: String
 )
