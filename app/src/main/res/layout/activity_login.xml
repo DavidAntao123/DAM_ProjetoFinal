@@ -7,8 +7,8 @@
     android:layout_height="match_parent">
 
     <!-- IMAGEM DE FUNDO -->
+    <!--        android:src="@drawable/autenticacao" -->
     <ImageView
-        android:src="@drawable/autenticacao"
         android:id="@+id/imgLogin"
         android:layout_width="0dp"
         android:layout_height="0dp"

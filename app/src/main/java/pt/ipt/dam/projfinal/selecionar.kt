@@ -7,6 +7,7 @@ import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.set
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import pt.ipt.dam.projfinal.horarios.ScheduleData
@@ -37,6 +38,7 @@ class selecionar : AppCompatActivity() {
 
         // Referência aos botões
         val btnHorario = findViewById<Button>(R.id.btnIrHorario)
+        val btnSala = findViewById<Button>(R.id.btnIrSala)
         val btnVoltar = findViewById<Button>(R.id.btnVoltar)
 
         /**
@@ -79,6 +81,24 @@ class selecionar : AppCompatActivity() {
             Toast.makeText(this, getString(R.string.toast_curso, selected), Toast.LENGTH_SHORT).show()
         }
 
+
+        // Campo AutoComplete da Sala
+        val txtSala = findViewById<AutoCompleteTextView>(R.id.txtSala)
+
+        // Load cursos when activity starts
+        loadCursos(txtCurso)
+        loadSalas(txtSala)
+
+        txtCurso.setOnTouchListener { _, _ ->
+            txtCurso.showDropDown()
+            false
+        }
+
+        txtCurso.setOnItemClickListener { parent, _, position, _ ->
+            val selected = parent.getItemAtPosition(position).toString()
+            Toast.makeText(this, getString(R.string.toast_curso, selected), Toast.LENGTH_SHORT).show()
+        }
+
         /**
          * Botão Ir para Horário
          * Valida os campos e abre a Activity de horários
@@ -89,9 +109,16 @@ class selecionar : AppCompatActivity() {
             val cursoSelecionado = txtCurso.text.toString()
 
             val turma = cursoSelecionado + anoSelecionado
-            fetchHorario(turma)
+            fetchHorariobyTurma(turma)
 
         }
+
+        btnSala.setOnClickListener {
+            val sala = txtSala.text.toString()
+            fetchHorariobySala(sala)
+
+        }
+
     }
 
     private fun loadCursos(txtCurso: AutoCompleteTextView) {
@@ -137,19 +164,56 @@ class selecionar : AppCompatActivity() {
             }
         })
     }
-    private fun fetchHorario(turma: String) {
+
+    private fun loadSalas(txtSala: AutoCompleteTextView) {
+        // Use RetrofitClient instead of creating a new Retrofit instance
+        RetrofitClient.instance.getSalas().enqueue(object : Callback<List<String>> {
+            override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
+                if (response.isSuccessful) {
+                    val listaSalas = response.body()
+                    if (listaSalas != null && listaSalas.isNotEmpty()) {
+                        runOnUiThread {
+                            val adapter = ArrayAdapter(
+                                this@selecionar,
+                                android.R.layout.simple_list_item_1,
+                                listaSalas
+                            )
+                            txtSala.setAdapter(adapter)
+                            println("DEBUG_API: Recebi ${listaSalas.size} cursos: $listaSalas")
+                        }
+                    } else {
+                        println("DEBUG_API: A lista veio vazia!")
+                        runOnUiThread {
+                            Toast.makeText(
+                                this@selecionar,
+                                "Nenhum curso encontrado",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                } else {
+                    println("DEBUG_API: Erro na resposta: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<List<String>>, t: Throwable) {
+                println("DEBUG_API: Falha na chamada: ${t.message}")
+                runOnUiThread {
+                    Toast.makeText(
+                        this@selecionar,
+                        "Erro de conexão: ${t.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        })
+    }
+
+    private fun fetchHorariobyTurma(turma: String) {
         lifecycleScope.launch {
             try {
-                val horario = RetrofitClient.instance.getHorario(turma)
+                val horario = RetrofitClient.instance.getHorarioByTurma(turma)
 
-                // --- DEBUG CONSOLE ---
-                println("--------------------------------------------------")
-                println("DEBUG_API_RESULT (Objeto Inteiro): $horario")
-                println("DEBUG_API_RESULT (Sala): ${horario.sala}")
-                println("DEBUG_API_RESULT (Nº de Dias): ${horario.horario.dias.size}")
-
-                println("--------------------------------------------------")
-                // ---------------------
 
                 val intent = Intent(this@selecionar, horarios::class.java)
                 intent.putExtra("horario_data", horario.horario)
@@ -157,6 +221,34 @@ class selecionar : AppCompatActivity() {
                 intent.putExtra("curso", horario.curso)
                 intent.putExtra("ano", horario.ano)
                 intent.putExtra("sala", horario.sala)
+
+                startActivity(intent)
+
+            } catch (e: Exception) {
+                println("DEBUG_API_ERROR: ${e.message}")
+                Toast.makeText(
+                    this@selecionar,
+                    "Erro ao carregar horário: ${e.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun fetchHorariobySala(sala: String) {
+        lifecycleScope.launch {
+            try {
+                val horario = RetrofitClient.instance.getHorarioBySala(sala)
+
+
+                val intent = Intent(this@selecionar, horarios::class.java)
+                intent.putExtra("horario_data", horario.horario)
+                intent.putExtra("turma", horario.turma)
+                intent.putExtra("curso", horario.curso)
+                intent.putExtra("ano", horario.ano)
+                intent.putExtra("sala", horario.sala)
+
 
                 startActivity(intent)
 
@@ -197,5 +289,6 @@ data class Dia(
 data class timeSlots(
     val time: String,   // Matches JSON "time"
     val value: String,  // Matches JSON "value"
+    val cor: String,
     val _id: String? = null  // Optional
 ) : Serializable

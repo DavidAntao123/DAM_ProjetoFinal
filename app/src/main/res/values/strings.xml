@@ -23,6 +23,10 @@
     <string name="erro_campos">Por favor, preencha todos os campos</string>
 
 
+    <!-- SELECIONAR SALA -->
+    <string name="ir_sala">Ver Sala</string>
+
+
     <!-- QR CODE / CÂMARA -->
     <string name="qr_invalido">QR Code inválido</string>
     <string name="sala_detectada">Sala detetada: %1$s</string>

@@ -10,8 +10,14 @@ interface HorarioApiService {
     @GET("horarios/cursos")
     fun getCursos(): Call<List<String>>
 
+    @GET("horarios/sala/salaNomes")
+    fun getSalas(): Call<List<String>>
+
     // Obtém o objeto completo do horário de uma turma específica
     // Se a tua rota no Node é router.get('/:turma'), o código abaixo está correto
     @GET("horarios/{turma}")
-    suspend fun getHorario(@Path("turma") turma: String): HorarioResponse
+    suspend fun getHorarioByTurma(@Path("turma") turma: String): HorarioResponse
+
+    @GET("horarios/sala/{sala}")
+    suspend fun getHorarioBySala(@Path("sala") turma: String): HorarioResponse
 }

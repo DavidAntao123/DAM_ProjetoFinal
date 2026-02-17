@@ -45,19 +45,58 @@
             android:layout_width="match_parent"
             android:layout_height="57dp"
             android:inputType="none" />
-
     </com.google.android.material.textfield.TextInputLayout>
+
+
+    <!-- Sala -->
+
+
+ <com.google.android.material.textfield.TextInputLayout
+     android:id="@+id/layoutSala"
+     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+     android:layout_width="0dp"
+     android:layout_height="wrap_content"
+     android:layout_marginTop="344dp"
+     android:hint="Sala"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintHorizontal_bias="0.0"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@id/layoutAno">
+
+     <AutoCompleteTextView
+         android:id="@+id/txtSala"
+         android:layout_width="match_parent"
+         android:layout_height="57dp"
+         android:inputType="none" />
+ </com.google.android.material.textfield.TextInputLayout>
+
 
     <!-- Botão -->
 
-    <com.google.android.material.button.MaterialButton
+ <com.google.android.material.button.MaterialButton
         android:id="@+id/btnIrHorario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="280dp"
+        android:layout_marginTop="56dp"
         android:backgroundTint="@color/verde_principal"
         android:gravity="center"
         android:text="@string/ir_horario"
+        android:textAlignment="center"
+        android:textColor="@color/branco"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutCurso" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnIrSala"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="364dp"
+        android:backgroundTint="@color/verde_principal"
+        android:gravity="center"
+        android:text="@string/ir_sala"
         android:textAlignment="center"
         android:textColor="@color/branco"
         android:textSize="18sp"
@@ -80,4 +119,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
