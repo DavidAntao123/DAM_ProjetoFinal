@@ -12,11 +12,17 @@ import android.widget.TextView
 import android.widget.Toast
 
 /**
- * Esta Activity é responsável por mostrar horários em formato de tabela
- * Recebe dados da API via Intent e os exibe em formato de tabela
+ * Horarios
+ *
+ * Activity responsável por apresentar o horário em formato de tabela.
+ *
+ * Recebe os dados enviados pela Activity Cam através de Intent
+ * (resulta da leitura do QR Code e da consulta à API)
+ *
+ * A tabela é construída dinamicamente com base nos dados recebidos.
  */
 class horarios : AppCompatActivity() {
-
+    // Tabela onde o horário será desenhado
     private lateinit var tableLayout: TableLayout
     private lateinit var btnClear: Button
     private lateinit var btnVoltarHorario: Button
@@ -25,17 +31,20 @@ class horarios : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_horarios)
 
-        // Inicialização dos componentes
+        // Inicialização dos componentes do layout
         tableLayout = findViewById(R.id.tableLayout)
         btnVoltarHorario = findViewById(R.id.btnVoltarHorario)
 
-        // Receber dados da Intent
+        /**
+         * Recebe dados enviados pela Activity anterior (Cam)
+         */
         val horarioData = intent.getSerializableExtra("horario_data") as? ScheduleData
         val turma = intent.getStringExtra("turma") ?: ""
         val curso = intent.getStringExtra("curso") ?: ""
         val ano = intent.getStringExtra("ano") ?: ""
         val sala = intent.getStringExtra("sala") ?: ""
 
+        // Se existirem dados válidos, cria a tabela
         if (horarioData != null) {
             val fullResponse = ScheduleResponse(
                 sala = sala,
@@ -47,23 +56,26 @@ class horarios : AppCompatActivity() {
             generateTableFromJson(fullResponse)
 
         } else {
+            // Caso falhe a receção dos dados
             generateEmptyTable()
             Toast.makeText(this, getString(R.string.horarios_ErroHorario), Toast.LENGTH_SHORT).show()
         }
-
+        // Botão Voltar fecha esta Activity
         btnVoltarHorario.setOnClickListener { finish() }
     }
 
     /**
-     * Cria a tabela do horário a partir dos dados recebidos,
-     * usando a cor definida em cada slot da API.
+     * Gera a tabela completa do horário a partir dos dados recebidos da API
+     *
+     * Cada célula recebe a cor diretamente do servidor.
      */
     private fun generateTableFromJson(horarioData: ScheduleResponse) {
+        // Limpa tabela anterior
         tableLayout.removeAllViews()
 
         val dias = horarioData.horario.dias
 
-        // Criar cabeçalho
+        // Criação do cabeçalho da tabela
         val header = TableRow(this)
         header.addView(createCell(getString(R.string.horariosTitulo), "#C5CAE9", true))
         for (dia in dias) {
@@ -71,6 +83,7 @@ class horarios : AppCompatActivity() {
         }
         tableLayout.addView(header)
 
+        // Usa o primeiro dia como referência para obter todos os horários
         if (dias.isNotEmpty() && dias.first().timeSlots.isNotEmpty()) {
 
             // Lista de todos os horários (usando o primeiro dia como referência)
@@ -79,16 +92,15 @@ class horarios : AppCompatActivity() {
             todosTimeSlots.forEach { timeSlotTime ->
                 val row = TableRow(this)
 
-                // Primeira coluna: A Hora (cinza claro)
+                // Primeira coluna: A Hora
                 row.addView(createCell(timeSlotTime, "#E8EAF6", false))
 
-                // Colunas dos dias
+                // Preenche cada dia
                 dias.forEach { dia ->
                     val slot = dia.timeSlots.find { it.time == timeSlotTime }
                     val conteudo = slot?.value ?: ""
 
-                    // BUSCA A COR DIRETAMENTE DO OBJETO TIMESLOT
-                    // Se não houver cor ou slot, assume Branco (#FFFFFF)
+                    // Usa a cor enviada pela API (ou branco por defeito)
                     val corParaPintar = if (slot?.cor != null && slot.cor.isNotEmpty()) {
                         slot.cor
                     } else {
@@ -102,6 +114,10 @@ class horarios : AppCompatActivity() {
         }
     }
 
+    /**
+     * Cria tabela vazia caso não existam dados
+     */
+
     private fun generateEmptyTable() {
         tableLayout.removeAllViews()
         val diasPadrao = listOf("Segunda", "Terca", "Quarta", "Quinta", "Sexta", "Sabado")
@@ -113,7 +129,9 @@ class horarios : AppCompatActivity() {
         tableLayout.addView(header)
     }
 
-
+    /**
+     * Cria uma célula da tabela com texto, cor de fundo e borda
+     */
     private fun createCell(text: String, color: String, isHeader: Boolean): TextView {
         return TextView(this).apply {
             this.text = text
@@ -134,8 +152,11 @@ class horarios : AppCompatActivity() {
         }
     }
 
+    // ---------------- MODELOS DE DADOS ----------------
+    // Representam exatamente a estrutura devolvida pela API
+
     /**
-     * DATA CLASSES - Mapeamento exato da estrutura da API
+     * Representa um bloco horário
      */
 
     data class TimeSlot(
@@ -145,16 +166,25 @@ class horarios : AppCompatActivity() {
         val _id: Any? = null
     ) : java.io.Serializable
 
+    /**
+     * Representa um dia da semana
+     */
     data class Dia(
         val nome: String,
         val timeSlots: List<TimeSlot>,
         val _id: Any? = null
     ) : java.io.Serializable
 
+    /**
+     * Contém todos os dias do horário
+     */
     data class ScheduleData(
         val dias: List<Dia>
     ) : java.io.Serializable
 
+    /**
+     * Estrutura completa recebida da API
+     */
     data class ScheduleResponse(
         val sala: String,
         val turma: String,

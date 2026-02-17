@@ -12,34 +12,46 @@ import retrofit2.Callback
 import retrofit2.Response
 
 /**
- * Activity responsável pelo login do utilizador
+ * Login
+ *
+ * Activity responsável pela autenticação do utilizador.
+ *
+ * Permite ao utilizador introduzir email e password.
+ * Pode funcionar de duas formas:
+ * Login local (modo teste)
+ * Login através da API (Retrofit)
  */
 class Login : AppCompatActivity() {
-
+    // Campos do layout
     lateinit var txtEmail: EditText
     lateinit var txtPassword: EditText
     lateinit var btnLogin: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Liga esta Activity ao layout XML
         setContentView(R.layout.activity_login)
 
-        // Liga os campos do XML ao Kotlin
+        // Associa os componentes do XML às variáveis Kotlin
         txtEmail = findViewById(R.id.txtEmail)
         txtPassword = findViewById(R.id.txtPassword)
         btnLogin = findViewById(R.id.btnLogin)
 
-        // Botão Entrar
+
+        /**
+         * Quando o utilizador carrega no botão "Entrar",
+         * é executada a função fazerLogin()
+         */
         btnLogin.setOnClickListener {
             fazerLogin()
         }
     }
 
     /**
-     * Função chamada ao carregar no botão Entrar
+     * Função responsável por validar e processar o login
      */
     private fun fazerLogin() {
-
+        // Obtém os valores introduzidos pelo utilizador
         val email = txtEmail.text.toString()
         val pass = txtPassword.text.toString()
 
@@ -81,8 +93,9 @@ class Login : AppCompatActivity() {
         */
     }
 
-    /**
-     * Guarda email em SharedPreferences
+     /**
+     * Guarda o email do utilizador em SharedPreferences
+     * Simula uma sessão simples local.
      */
     private fun guardarSessao(email: String) {
         val prefs = getSharedPreferences("user", MODE_PRIVATE)

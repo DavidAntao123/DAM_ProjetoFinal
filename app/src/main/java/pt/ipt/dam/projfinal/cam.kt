@@ -1,5 +1,6 @@
 package pt.ipt.dam.projfinal
 
+// Permissões Android
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -7,25 +8,39 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+// Componentes AndroidX
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+
+// CameraX
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
+// Coroutines
 import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
+// ML Kit para leitura de QR Codes
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.common.InputImage
-import kotlinx.coroutines.launch
+// ViewBinding
 import pt.ipt.dam.projfinal.databinding.ActivityCamBinding
+
+// Execução em background
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 /**
- * Activity responsável pela leitura de QR Codes utilizando CameraX e ML Kit.
- * O QR Code contém apenas o código da sala (ex: "I153")
+ * Cam
+ *
+ * Activity responsável pela leitura de QR Codes utilizando:
+ * CameraX (acesso à câmara)
+ * ML Kit (deteção de QR Codes)
+ *
+ * O QR Code contém apenas o identificador da sala (ex: "I153").
+ * Após leitura, a aplicação consulta a API e carrega o horário correspondente.
  */
 class cam : AppCompatActivity() {
 
@@ -190,8 +205,10 @@ class cam : AppCompatActivity() {
         }
     }
 
+
     /**
-     * Busca o horário da sala usando o Retrofit
+     * Consulta a API para obter o horário da sala
+     * utilizando Retrofit + Coroutines
      */
     private fun fetchHorarioBySala(sala: String) {
 
@@ -202,7 +219,7 @@ class cam : AppCompatActivity() {
 
                 val intent = Intent(this@cam, horarios::class.java)
 
-                // Passa todos os dados necessários
+                // Envia dados para a próxima Activity
                 intent.putExtra("horario_data", horarioResponse.horario)
                 intent.putExtra("turma", horarioResponse.turma)
                 intent.putExtra("curso", horarioResponse.curso)
@@ -212,7 +229,6 @@ class cam : AppCompatActivity() {
 
                 // Inicia a activity e fecha a câmara
                 startActivity(intent)
-
                 finish()
 
             } catch (e: Exception) {

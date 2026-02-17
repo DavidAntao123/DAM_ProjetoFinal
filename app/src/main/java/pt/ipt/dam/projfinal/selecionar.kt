@@ -18,8 +18,13 @@ import java.io.Serializable
 
 
 /**
- * Activity responsável por permitir ao utilizador
- * selecionar o ano e o curso antes de visualizar o horário pretendido
+ * Activity responsável por permitir ao utilizador selecionar
+ * o ano, curso ou sala antes de visualizar o horário.
+ *
+ * Comunica com a API através do Retrofit para:
+ *  Obter lista de cursos
+ *  Obter lista de salas
+ *  Obter horários por turma ou por sala
  */
 class selecionar : AppCompatActivity() {
 
@@ -53,6 +58,7 @@ class selecionar : AppCompatActivity() {
         val txtAno = findViewById<AutoCompleteTextView>(R.id.txtAno)
 
         // Adapter que fornece os valores do array "anos" ao dropdown
+        // Adapter com os anos disponíveis
         val adapterAno = ArrayAdapter(this, android.R.layout.simple_list_item_1, anos)
         txtAno.setAdapter(adapterAno)
 
@@ -68,51 +74,54 @@ class selecionar : AppCompatActivity() {
         // Campo AutoComplete do Curso
         val txtCurso = findViewById<AutoCompleteTextView>(R.id.txtCurso)
 
-        // Load cursos when activity starts
+        // Carrega cursos a partir da API
         loadCursos(txtCurso)
-
+        // Força abertura do dropdown ao tocar
         txtCurso.setOnTouchListener { _, _ ->
             txtCurso.showDropDown()
             false
         }
-
+        // Toast com curso selecionado
         txtCurso.setOnItemClickListener { parent, _, position, _ ->
             val selected = parent.getItemAtPosition(position).toString()
             Toast.makeText(this, getString(R.string.toast_curso, selected), Toast.LENGTH_SHORT).show()
         }
 
 
-        // Campo AutoComplete da Sala
+        /**
+         * Campo AutoComplete da Sala
+         */
         val txtSala = findViewById<AutoCompleteTextView>(R.id.txtSala)
 
         // Load cursos when activity starts
         loadCursos(txtCurso)
+        // Carrega salas da API
         loadSalas(txtSala)
 
         txtCurso.setOnTouchListener { _, _ ->
             txtCurso.showDropDown()
             false
         }
-
         txtCurso.setOnItemClickListener { parent, _, position, _ ->
             val selected = parent.getItemAtPosition(position).toString()
             Toast.makeText(this, getString(R.string.toast_curso, selected), Toast.LENGTH_SHORT).show()
         }
 
         /**
-         * Botão Ir para Horário
-         * Valida os campos e abre a Activity de horários
+         * Botão Ir para Horário (por curso + ano)
          */
         btnHorario.setOnClickListener {
             // Obtém os valores introduzidos pelo utilizador
             val anoSelecionado = txtAno.text.toString()
             val cursoSelecionado = txtCurso.text.toString()
-
+            // Exemplo: LEI + 3
             val turma = cursoSelecionado + anoSelecionado
             fetchHorariobyTurma(turma)
 
         }
-
+        /**
+         * Botão Ir por Sala
+         */
         btnSala.setOnClickListener {
             val sala = txtSala.text.toString()
             fetchHorariobySala(sala)
@@ -120,9 +129,11 @@ class selecionar : AppCompatActivity() {
         }
 
     }
-
+    /**
+     * Obtém lista de cursos da API e coloca no AutoCompleteTextView
+     */
     private fun loadCursos(txtCurso: AutoCompleteTextView) {
-        // Use RetrofitClient instead of creating a new Retrofit instance
+
         RetrofitClient.instance.getCursos().enqueue(object : Callback<List<String>> {
             override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
                 if (response.isSuccessful) {
@@ -208,7 +219,9 @@ class selecionar : AppCompatActivity() {
             }
         })
     }
-
+    /**
+     * Chama API usando Coroutine e abre Activity horarios
+     */
     private fun fetchHorariobyTurma(turma: String) {
         lifecycleScope.launch {
             try {
@@ -216,6 +229,7 @@ class selecionar : AppCompatActivity() {
 
 
                 val intent = Intent(this@selecionar, horarios::class.java)
+                // Envia dados pela Intent
                 intent.putExtra("horario_data", horario.horario)
                 intent.putExtra("turma", horario.turma)
                 intent.putExtra("curso", horario.curso)
@@ -265,30 +279,68 @@ class selecionar : AppCompatActivity() {
     }
 
 }
-
+/**
+ * HorarioResponse
+ *
+ * Classe principal da resposta da API.
+ * Representa um horário completo devolvido pelo servidor Node.js.
+ *
+ * Contém:
+ * horário (dias + blocos)
+ * sala
+ * turma
+ * curso
+ * ano
+ *
+ * Implementa Serializable para permitir envio entre Activities via Intent.
+ */
 data class HorarioResponse(
-    val horario: ScheduleData,
-    val sala: String,
-    val turma: String,
-    val curso: String,
-    val ano: String,
-    val _id: String? = null,  // You might want to add this
-    val __v: Int? = null       // And this
+    val horario: ScheduleData,  // Estrutura principal do horário
+    val sala: String,           // Sala (ex: I153)
+    val turma: String,          // Turma (ex: LEI3)
+    val curso: String,          // Curso (ex: LEI)
+    val ano: String,            // Ano (ex: 3)
+    val _id: String? = null,   // ID MongoDB
+    val __v: Int? = null       // Versão MongoDB
 ) : Serializable
 
+/**
+ * ScheduleData
+ *
+ * Representa apenas a parte "horario" do JSON.
+ * Contém uma lista de dias da semana
+ */
 data class ScheduleData(
-    val dias: List<Dia>  // Matches JSON "dias"
+    val dias: List<Dia>
 ) : Serializable
 
+/**
+ * Dia
+ *
+ * Representa um dia da semana (ex: Segunda).
+ * Contém:
+ * nome do dia
+ * lista de blocos horários (timeSlots)
+ */
 data class Dia(
-    val nome: String,        // Matches JSON "nome"
-    val timeSlots: List<timeSlots>,  // Matches JSON "timeSlots"
-    val _id: String? = null  // Optional, since it's in the JSON
+    val nome: String,        // Nome do dia (Segunda, Terça, etc.)
+    val timeSlots: List<timeSlots>,  // Lista de aulas desse dia
+    val _id: String? = null  // ID MongoDB
 ) : Serializable
 
+/**
+ * timeSlots
+ *
+ * Representa um bloco horário individual.
+ *
+ * Contém:
+ * - hora (ex: 08:00-10:00)
+ * - valor (nome da disciplina)
+ * - cor (hexadecimal para pintar a célula)
+ */
 data class timeSlots(
-    val time: String,   // Matches JSON "time"
-    val value: String,  // Matches JSON "value"
-    val cor: String,
-    val _id: String? = null  // Optional
+    val time: String,   /// Hora do bloco
+    val value: String,  // Nome da disciplina
+    val cor: String,    // Cor enviada pela API
+    val _id: String? = null  // ID MongoDB (opcional)
 ) : Serializable
